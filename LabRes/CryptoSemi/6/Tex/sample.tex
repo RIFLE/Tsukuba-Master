@@ -1,0 +1,307 @@
+\documentclass[dvipdfm]{beamer}
+% \documentclass{beamer}
+\usepackage{pxjahyper}%しおりの文字化けを防ぐ
+\usepackage[utf8]{inputenc}  % For older LaTeX versions
+
+\usepackage{graphicx}% 各種画像の張り込み
+\usepackage{amsmath,amssymb}%標準数式表現を拡大する
+
+\usepackage{algorithmic}    %擬似アルゴリズム
+\usepackage{algorithm}      %擬似アルゴリズム
+
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{otf}
+\usepackage{color}
+% \usepackage{unicode}
+
+\usetheme{Madrid}   %% theme の選択
+% \usetheme{Berlin}
+
+%\usecolortheme{blue}          %% colortheme を選ぶと色使いが変わる
+
+\setbeamertemplate{theorems}[numbered]  %% 定理に番号をつける
+% \newtheorem{thm}{定理}[section]
+% \newtheorem{proposition}{命題}[thm]
+\newtheorem{dfn}{定義}
+\newtheorem{thm}{定理}
+\newtheorem{proposition}{命題}
+\newtheorem{lma}{補題}
+\newtheorem{coro}{系}
+\theoremstyle{example}
+\newtheorem{exam}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{question}[thm]{Question}
+\newtheorem{prob}[thm]{Problem}
+
+\newcommand{\todayADJP}{\number\year 年\number\month 月\number\day 日}
+\newcommand{\todayAD}{\number\year/\number\month/\number\day}
+
+\usefonttheme{professionalfonts}    %%数式のフォント
+
+\setbeamertemplate{navigation symbols}{} %%右下のを消す
+% \addbibresource{/Users/OsakiShunsuke/Docuemnt/presenPaper/ref.bib} %%bib
+%----------- ここからスライド内容 ---------------%
+\title[進捗報告\todayAD]{進捗報告\todayAD}
+
+
+\author[Nicolas Mamanchuk]{Nicolas Mamanchuk}
+\institute[筑波大学 情報理工学位P 1年]{筑波大学 情報理工学位P 1年}
+% \date[Oct 8 2021]{2021年10月8日}
+\date[April 6 2022]{\todayADJP}
+
+\subject{進捗報告 todayAD}
+\begin{document}
+
+\begin{frame}
+    \titlepage %\maketitleに替わるタイトル情報
+\end{frame}
+
+% \begin{frame}{目次}
+%     \tableofcontents
+% \end{frame}
+
+\section{進捗の概要}
+
+\begin{frame}{目次}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{進捗の概要}
+    \begin{block}{進捗}
+        \begin{enumerate}[1]
+            \item ハイブリッド化を行うため，途中まで秘密鍵が分かっている場合の格子ベースでの攻撃を行うプログラムを書いた．これを用いて攻撃を行なった．
+            \item 新しいマシンのセットアップをして，フーリエ解析ベースのプログラムが動くようにした．攻撃を行うのに足りないコードを書いて攻撃を行なった．
+            \item $l$が大きいときに必要な署名数がどのようになるのかということについて主に$\epsilon$（エラーレート）について少しだけ考察をした．
+        \end{enumerate}
+    \end{block}
+    \begin{block}{ToDo}
+        \begin{enumerate}[1]
+            \item 2-bit漏洩の場合の論文を読む．
+            \item 実験の続き．
+            \item $l$が大きいときの考察を深める．
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\section{$l$が大きいときの署名数}
+\subsection{必要な署名数の式}
+
+\begin{frame}{目次}
+    \tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{必要な署名数の式}
+    $M$：署名数，$\epsilon$：エラーレート，$l$：漏洩しているnonceの上位bit数，$r$：4--list sum algorithmを繰り返す回数，$n_i$：4--list sum algorithmの各回で$0$にする上位のbit数．
+    \begin{align*}
+        M \geq \frac{1}{\left(1-2\epsilon\right)^2} & \times \frac{1}{\{\left(2^l/\pi\right) \cdot \sin\left(\pi/2^l\right)\}^2} \times 2^{\mathcal{A}} \\
+                                                    & \mathcal{A}= \sum_{i=0}^{r-1}4^{-i-1}n_i  + \frac{8}{3}\left(1-4^{-r}\right) \nonumber
+    \end{align*}
+\end{frame}
+
+
+\subsection{バイアス}
+\begin{frame}{目次}
+    \tableofcontents[currentsubsection]
+\end{frame}
+
+
+\begin{frame}{秘密鍵の導出}
+    公開鍵等から求まる$z_i,h_i$と漏洩した$k_i$の上位bitから全ての$i$において，以下の式を満たすような$\mathrm{sk}$を求める．
+    \begin{align*}
+        k_i  = z_i+h_i\cdot \mathrm{sk} \bmod{q}
+    \end{align*}
+
+    このとき，$k_i$の上位bitには偏りがあるとし，バイアス関数で計算した値が大きくなれば，正しい$\mathrm{sk}$となる．
+
+    \begin{dfn}
+        集合$K=\left\{k_i \in \mathbb{Z}_q\right\}^M_{i=1}$に対するサンプルバイアス
+        \begin{equation*}
+            B_q\left(K\right) \coloneqq \frac{1}{M}\sum^M_{i=1}\exp\left(\frac{2\pi k_i}{q}\mathrm{i}\right)
+        \end{equation*}
+    \end{dfn}
+\end{frame}
+
+
+\begin{frame}{$l$毎のバイアスの絶対値}
+    \vspace{-5pt}
+    \begin{align*}
+        M \geq \frac{1}{\left(1-2\epsilon\right)^2} & \times \textcolor{red}{\frac{1}{\{\left(2^l/\pi\right) \cdot \sin\left(\pi/2^l\right)\}^2}} \times 2^{\mathcal{A}} \\
+    \end{align*}
+    $ \left|B_q\left(K\right)\right| \rightarrow \left(2^l/\pi\right) \cdot \sin\left(\pi/2^l\right)$
+    \begin{table}[h]
+        \centering
+        \caption{バイアスの絶対値}
+        \scalebox{0.8}{
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                $l$                       & $1$      & $2$     & $3$     & $4$      & $5$      & $10$        \\
+                \hline
+                $|B_q\left(K\right)|$     & $0.6366$ & $0.900$ & $0.974$ & $0.9935$ & $0.9983$ & $0.9999984$ \\
+                \hline
+                $|B_q\left(K\right)|^2$   & $0.405$  & $0.810$ & $0.948$ & $0.987$  & $0.996$  & $0.9999968$ \\
+                \hline
+                $1/|B_q\left(K\right)|^2$ & $2.22$   & $1.23$  & $1.05$  & $1.013$  & $1.004$  & $1.0000031$ \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    漏洩したnonceの長さが大きくなると，赤色の項はほとんど$1$になり，必要な署名数がおよそ半分になる．
+\end{frame}
+
+
+\begin{frame}{エラー付きのモジュラバイアスに関する補題}
+    \begin{lma}\label{lma_moudlaBias}
+        $b\in\left\{0,1\right\}$，すべての$\epsilon\in\left[0,1/2\right]$と，偶数$q>0$において，以下が成り立つ．
+
+        確率変数$\boldsymbol{K}$が$\mathbb{Z}_q$上の重み付き一様分布(weighted uniform distribution)に従うとすると，
+
+        \begin{align*}
+            \begin{cases}
+                \mathrm{Pr}\left[\boldsymbol{K}=k_i\right]=\left(1-b\right)\cdot \frac{1-\epsilon}{q/2}
+                +b\cdot \frac{\epsilon}{q/2}                   & \mathrm{if} \;\; 0 \leq k_i < q/2 \\
+                \mathrm{Pr}\left[\boldsymbol{K}=k_i\right]= b \cdot \frac{1-\epsilon}{q/2}
+                + \left(1- b \right)\cdot \frac{\epsilon}{q/2} & \mathrm{if} \;\; q/2 \leq k_i < q
+            \end{cases}
+        \end{align*}
+
+        $\boldsymbol{K}_b$を$\left[0+bq/2,q/2+bq/2\right)$上の一様分布として，$\boldsymbol{K}$のモジュラーバイアスは，
+        \begin{align*}
+            B_q\left(\boldsymbol{K}\right) = \left(1-2\epsilon\right)B_q\left(\boldsymbol{K}_b\right)
+        \end{align*}
+    \end{lma}
+\end{frame}
+
+
+
+\begin{frame}%{Bleichenbacherによる攻撃のフレームワーク}
+    \vspace{-10pt}
+    \begin{algorithm}[H]
+        \caption{Bleichenbacher's attack framework}
+        \label{alg_Bleichenbacher}
+        \begin{algorithmic}[1]
+            \scriptsize
+            \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+            \renewcommand{\algorithmicensure}{\textbf{Output:}}
+            \REQUIRE ${\left(h_i,z_i\right)}^M_{i=1}$ : $\mathbb{Z}_q$上のHNPのサンプル，
+            $M'$ : 求めたい線形結合の個数，
+            $L_{\mathrm{FFT}}$ : FFTテーブルサイズ
+            \ENSURE $\mathrm{sk}$の上位bits
+            \STATE \textbf{Range  reduction}
+            \STATE 線形結合の組
+            $\left(h'_j,z'_j\right)=\left(\sum_i \omega_{i,j}h_i, \sum_i \omega_{i,j} z_i\right)$
+            ．$j\in \left[1,M'\right]$，係数は$\omega_{i,j}\in\left\{-1,0,1\right\}$
+            ，$\left\{\left(h'_j,z'_j\right)\right\}^{M'}_{j=1}$である$M'$個のサンプルを生成する．
+            \setbeamertemplate{items}[default]
+            \begin{enumerate}[(1)]
+                \item Small:$0\leq h'_j<L_{\mathrm{FFT}}$
+                \item Sparse:すべての$j\in\left[1,M'\right]$において，$\Omega_j \coloneqq  \sum_i|\omega_{i,j}|$
+                      であり，$|B_q\left(K\right)|^{\Omega_j}\gg 1/\sqrt{M'}$
+            \end{enumerate}
+            % \color{lightgray}
+            \STATE \textbf{Bias Computation}
+            \STATE $Z \coloneqq  \left(Z_0,\ldots Z_{L_{\mathrm{FFT}}-1}\right) \leftarrow \left(0,\ldots,0\right) $
+            \FOR{ $j=1$ to $M'$}
+            \STATE $Z_{h'_j}\leftarrow Z_{h'_j}+\exp\left(2\pi\mathrm{i} z'_j/q\right)$
+            \ENDFOR
+            \STATE $w_i=iq/L_{\mathrm{FFT}}$として，
+            $\left\{B_q\left(K_{w_i}\right)\right\}^{L_{\mathrm{FFT}}-1}_{i=0} \leftarrow \mathrm{FFT}\left(Z\right)$%\\ $= \left(B_q\left(K_{w_{0}}\right),B_q\left(K_{w_{1}}\right),\ldots ,B_q\left(K_{w_{L_{\mathrm{FFT}}-1}}\right)\right)$
+            \STATE $|B_q\left(K_{w_i}\right)|$が最大となる$i$を求める．
+            \RETURN $w_i$の上位$\log{L_{\mathrm{FFT}}}$bits．
+            \normalsize
+        \end{algorithmic}
+    \end{algorithm}
+    \normalsize
+\end{frame}
+
+
+\section{ハイブリッド化について}
+\subsection{アイデア}
+
+\begin{frame}{目次}
+    \tableofcontents[currentsubsection]
+\end{frame}
+
+
+\begin{frame}{フーリエ解析ベースから格子ベースへの繋ぎ}
+    \begin{table}[h]
+        \centering
+        \caption{既存研究における各攻撃の成功について（緑がフーリエ解析ベース攻撃．マゼンタが格子ベースの攻撃）}
+        \scalebox{0.8}{
+            \begin{tabular}{|c|c|c|c|c|c|}
+                \hline
+                        & $<1$                  & $1$                   & $2$                                           & $3$                     & $4$                     \\
+                \hline
+                256-bit & --                    & --                    & \textcolor{green}{〇}                         & \textcolor{green}{〇}   & \textcolor{magenta}{〇} \\
+                192-bit & \textcolor{green}{〇} & \textcolor{green}{〇} & --                                            & --                      & --                      \\
+                160-bit & \textcolor{green}{〇} & \textcolor{green}{〇} & \textcolor{green}{〇} \textcolor{magenta}{〇} & \textcolor{magenta}{〇} & --                      \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+
+
+\section{論文紹介}
+
+\subsection{論文について}
+\begin{frame}{目次}
+    \tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{論文について}
+    \begin{block}{}
+        \begin{itemize}
+            \item Solving {BDD} by Enumeration: An Update
+            \item Mingjie Liu, Phong Q. Nguyen
+            \item LNCS 2013
+        \end{itemize}
+    \end{block}
+    \begin{block}{貢献}
+        Search-LWEに対して格子攻撃をsignificant better than Lindner-Peikert attackで行った．
+
+        これまではDSAで3-bitのnonceが漏洩している場合に破っているものが最も良かったが，この論文では2-bitのnonceが漏洩した場合に100個の署名に対して攻撃が成功している（a few hours）．
+    \end{block}
+\end{frame}
+
+
+
+\section{格子関連のアルゴリズム}
+\subsection{LLL簡約基底}
+
+\begin{frame}{目次}
+    \tableofcontents[currentsubsection]
+\end{frame}
+
+
+\begin{frame}{LLLアルゴリズム}
+    \begin{figure}[!t]
+        \begin{algorithm}[H]
+            \caption{$\delta$LLLアルゴリズム}
+            \label{alg_deltaLLL}
+            \begin{algorithmic}[1]
+                \small
+                \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+                \renewcommand{\algorithmicensure}{\textbf{Output:}}
+                \REQUIRE 格子基底 $\boldsymbol{B} = \left(\boldsymbol{b}_1,\ldots,\boldsymbol{b}_n\right) \in \mathbb{Z}^{m\times n}$，パラメータ$\frac{1}{4}< \delta <1$
+                \ENSURE $\mathcal{L}\left(\boldsymbol{B}\right)$のLLL簡約基底
+                \STATE (loop)
+                \FOR{ $i=1 \ldots n$}
+                \FOR{ $j=i - 1 \ldots 1$}
+                \STATE $c_{i,j} \coloneqq \lfloor \left<\boldsymbol{b}_i,\boldsymbol{b}_j\right> / \left< \boldsymbol{b}_j, \boldsymbol{b}_j\right> \rceil, \boldsymbol{b}_i \coloneqq \boldsymbol{b}_i -c_{i,j}\boldsymbol{b}_j$
+                \ENDFOR
+                \ENDFOR
+                \FOR{$i=1 \ldots n $}
+                \IF{ ある$i$に対して，$\delta \left\| \pi_i \left(\boldsymbol{b}_i\right) \right\| ^2 \leq \left\| \pi_i\left(\boldsymbol{b}_{i+1} \right) \right\|^2 $}
+                \STATE $\boldsymbol{b}_i$と$\boldsymbol{b}_{i+1}$を交換し， (loop) へ行く
+                \ENDIF
+                \ENDFOR
+                \STATE $\boldsymbol{B}$を出力する．
+            \end{algorithmic}
+        \end{algorithm}
+    \end{figure}
+\end{frame}
+
+
+\end{document}

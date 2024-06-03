@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Overview of Progress}{2}{0}{1}
+\beamer@sectionintoc {2}{Number of Signatures when $l$ is Large}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Equation for Required Number of Signatures}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Bias}{6}{0}{2}
+\beamer@sectionintoc {3}{On Hybridization}{11}{0}{3}
+\beamer@subsectionintoc {3}{1}{Idea}{11}{0}{3}
+\beamer@sectionintoc {4}{Paper Introduction}{13}{0}{4}
+\beamer@subsectionintoc {4}{1}{About the Paper}{13}{0}{4}
+\beamer@sectionintoc {5}{Lattice-related Algorithms}{15}{0}{5}
+\beamer@subsectionintoc {5}{1}{LLL Reduced Basis}{15}{0}{5}
