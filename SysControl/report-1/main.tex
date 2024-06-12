@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[fleqn]{amsmath} % This package with the fleqn option aligns equations to the left
+\setlength{\mathindent}{0pt} % Set indentation from the left margin
+
+\usepackage{amssymb} % Required for math symbols
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+
+\usepackage[backend=biber, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{a4paper, margin=1in}
+
+{
+\title{
+    \includegraphics[width=0.4\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{Systems and Control} \\
+    \vspace{3mm}    
+    Report 1 on Lectures 1, 2 \\
+    Analyzing LWE Cryptosystems with Sparse Binary Secrets Using Machine Learning Techniques
+}
+
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+\subsection{Importance of Lattice Cryptography}
+Lattice cryptography has become a cornerstone in the development of post-quantum cryptographic protocols. Unlike classical cryptographic systems, which rely on the hardness of factoring large integers or computing discrete logarithms, lattice-based schemes are resistant to attacks by quantum computers. This resilience stems from the computational hardness of lattice problems, such as the Learning with Errors (LWE) problem, which remains intractable even for quantum algorithms.
+
+The National Institute of Standards and Technology (NIST) has recognized the significance of lattice cryptography and has incorporated it into the standardization process for post-quantum cryptographic algorithms. Recent advancements in lattice cryptography include efficient algorithms for key exchange, encryption, and digital signatures, which provide strong security guarantees and practical performance.
+
+\subsection{Introduction to SALSA}
+The SALSA series of works marks a significant step in applying machine learning, specifically transformer models, to cryptographic attacks on lattice-based schemes. The initial hypothesis behind SALSA was that transformers, with their powerful sequence-to-sequence learning capabilities, could be effectively used to recover secrets from LWE instances. This innovative approach leverages the ability of transformers to model complex relationships within data, potentially uncovering patterns that traditional algorithms might miss.
+
+\section{Fundamentals of LWE}
+\subsection{Learning with Errors Problem}
+The LWE is a cornerstone of lattice-based cryptography, introduced by Oded Regev. The problem can be formulated as follows:
+
+Given:
+\begin{itemize}
+    \item A secret vector $s \in \mathbb{Z}_q^n$
+    \item A set of linear equations $As + e \equiv b \mod q$
+\end{itemize}
+
+Where:
+\begin{itemize}
+    \item $A \in \mathbb{Z}_q^{m \times n}$ is a uniformly random matrix
+    \item $e \in \mathbb{Z}_q^m$ is an error vector sampled from a probability distribution $\chi$
+\end{itemize}
+
+The objective is to recover the secret vector $s$ given $(A, b)$.
+
+\subsection{Binary and Ternary Secrets}
+In LWE-based schemes, the secret key vector $s$ can be sampled from various distributions for efficiency reasons. Common distributions include:
+\begin{itemize}
+    \item Binary distributions: $s \in \{0, 1\}^n$
+    \item Ternary distributions: $s \in \{-1, 0, 1\}^n$
+\end{itemize}
+
+These distributions are especially useful in homomorphic encryption schemes, such as HEAAN.
+
+\subsection{Search-LWE and Decision-LWE}
+The LWE problem comes in two main variants:
+\begin{itemize}
+    \item Search-LWE: The goal is to find the secret vector $s$ given $(A, b)$.
+    \item Decision-LWE: The goal is to distinguish whether pairs $(A, b)$ are sampled according to the LWE distribution or uniformly at random.
+\end{itemize}
+
+Regev's reduction shows that solving the Search-LWE problem is as hard as distinguishing LWE samples from random ones, establishing the foundational hardness of LWE.
+
+\section{Research Objective}
+\subsection{Transformers and Secret Key Prediction}
+The focus of this research is to analyze the performance of transformers with attention techniques in predicting secret keys using noisy data in cryptosystems based on LWE with binary secrets. Specifically, we aim to understand how the distribution of LWE samples and secrets affects the prediction accuracy of the neural network.
+
+\section{Assumptions}
+\begin{itemize}
+    \item Fix all parameters except for time (the amount of time the neural network learns to predict the noisy $B$ in $B := A \cdot S + E$).
+    \item Examine prediction differences based on different:
+    \begin{itemize}
+        \item Dimensions of LWE samples.
+        \item Amount of samples necessary to reach certain accuracy.
+        \item Distributions of LWE samples and different distributions of secrets used in generation.
+    \end{itemize}
+\end{itemize}
+
+\section{Methodology}
+The methodology follows a structured approach based on time-series analysis techniques. The steps are as follows:
+
+\subsection{Reconstruct State with Delay Coordinates}
+\begin{equation}
+    z(t) = \left(s(t), s(t - \tau), \ldots, s(t - (d - 1)\tau)\right)
+\end{equation}
+
+\subsection{Find Neighboring Points from Past Data}
+\begin{equation}
+    N(t) = \left\{i = t - \tau, t - 2\tau, t - 3\tau, \ldots \mid \|z(t) - z(i)\| \leq \epsilon\right\}
+\end{equation}
+
+\subsection{Predict Next Point's Average}
+\begin{equation}
+    \hat{z}(t + \tau) = \frac{1}{N(t)} \sum_{i \in N(t)} z(i + \tau)
+\end{equation}
+
+\subsection{Calculate Prediction Error}
+\begin{equation}
+    \sqrt{\sum_{t}\left(\hat{z}(t + \tau) - z(t + \tau)\right)^2}
+\end{equation}
+
+\subsection{Additional Notes}
+
+The number of time points included in the time series data corresponds to the amount of epochs (tau step) that are used while training the model. On each epoch, the accuracy of each model is re-evaluated correspondingly for each distribution of the LWE examples. Therefore, for E epochs and M different distributions where for each distribution the LWE set contains t LWE-examples.
+
+For the number of Epochs, we can take the biggest number of all distributions, necessary to obtain a certain prediction accuracy (for example, 95\%).
+
+Next, we can compare time-series which are obtained for every distribution. More detailes on the latter methodology are stated in the next seciton.
+
+\section{Analysis Plan}
+The analysis plan involves the following steps:
+
+\begin{enumerate}
+    \item Generate various LWE instances with different Gaussian distributions.
+    \item Compute the average prediction error for each distribution using the formulas provided in the methodology.
+    \item Create time-series plots showing the prediction accuracy at each point in time.
+\end{enumerate}
+
+\section{Hypotheses}
+\begin{itemize}
+    \item $H_0$: A sparse secret is predicted more accurately with a more sparse Gaussian coefficient.
+    \item $H_1$: A less sparse secret is predicted more accurately.
+    \item $H_2$: Sparsity does not affect the accuracy of secret recovery.
+\end{itemize}
+
+\section{Expected Outcomes}
+Based on the obtained results, we can conclude that the network can learn more efficiently depending on the specific distribution, leading to potential insights into susceptible configurations of LWE. Comparing different distributions will help understand their impact on prediction accuracy and deviations.
+
+\section{Conclusion}
+This report outlines the methodology for analyzing the efficiency of transformers with attention techniques in predicting secret keys in LWE cryptosystems. By fixing certain parameters and examining the effects of different distributions, we aim to identify the most robust configurations against such attacks.
+
+\section*{References}
+\begin{enumerate}
+    \item Mamanchuk N., University of Tsukuba, Github, \today. Available online: \url{https://github.com/RIFLE}
+    \item Ideta, Tanaka, Takeuchi, and Aihara, A mathematical model of intermittent androgen suppression for prostate cancer, J. Nonlinear Science 18, 593 (2008)
+    \item Hirata, Bruchovsky and Aihara, Development of a mathematical model that predicts the outcome of hormone therapy for prostate cancer, J. Theor. Biol. 264, 517-527 (2010)
+    \item Hirata, Azuma and Aihara, Model predictive control for optimally scheduling intermittent androgen suppression of prostate cancer, Methods 67, 278-281 (2014)
+    \item Hirata et al., Intermittent androgen suppression: estimating parameters for individual patients based on initial PSA data in response to androgen deprivation therapy, PLoS One 10, e0130372 (2015)
+\end{enumerate}
+
+\end{document}
