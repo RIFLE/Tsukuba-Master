@@ -1,0 +1,18 @@
+nicolasxx@XX:~$ cd ~
+nicolasxx@XX:~$ ssh pi@192.168.0.130
+pi@192.168.0.130's password: 
+
+Welcome to Raspberry Pi!
+$ cd led_control_project
+$ python3 led_controller.py
+LED Control Server Started. Listening for commands...
+Received command: LED ON
+Turning LED on...
+Received command: LED OFF
+Turning LED off...
+$ exit
+logout
+Connection to 192.168.0.130 closed.
+
+nicolasxx@XX:~$
+nicolasxx@XX:~$
