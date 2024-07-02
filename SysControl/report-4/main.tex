@@ -56,6 +56,127 @@
 
 \maketitle
 
+\section{Analysis of Two Phase-Coupled Oscillators}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{materials/task0.jpeg}
+\end{center}
+
+\subsection{Problem Formulation}
+The system consists of two oscillators (frogs) whose phase dynamics are influenced by a sinusoidal coupling and an additional phase shift. The differential equations governing their behavior are:
+\begin{align}
+    \frac{d\theta_1}{dt} &= \omega - K \sin(\theta_1 - \theta_2 + \alpha), \\
+    \frac{d\theta_2}{dt} &= \omega - K \sin(\theta_2 - \theta_1 + \alpha).
+\end{align}
+
+\subsection{Phase Difference and System Dynamics}
+Defining the phase difference \(\phi = \theta_1 - \theta_2\), we calculate the derivative of \(\phi\) with respect to time. We then subtract the derivative of \(\theta_2\) from \(\theta_1\) to find \(\frac{d\phi}{dt}\):
+\begin{align}
+    \frac{d\phi}{dt} &= \frac{d\theta_1}{dt} - \frac{d\theta_2}{dt} = \left(\omega - K \sin(\theta_1 - \theta_2 + \alpha)\right) - \left(\omega - K \sin(\theta_2 - \theta_1 + \alpha)\right).
+\end{align}
+
+Using the trigonometric identity for \(\sin(-x) = -\sin(x)\), the equation simplifies to:
+\begin{align}
+    \frac{d\phi}{dt} &= -K \sin(\theta_1 - \theta_2 + \alpha) + K \sin(\theta_2 - \theta_1 + \alpha).
+\end{align}
+
+Applying the sum-to-product identities for sine:
+\[
+\sin(a) - \sin(b) = 2 \cos\left(\frac{a + b}{2}\right) \sin\left(\frac{a - b}{2}\right)
+\]
+with \(a = \theta_2 - \theta_1 + \alpha\) and \(b = \theta_1 - \theta_2 + \alpha\), we derive:
+\begin{align}
+    \frac{d\phi}{dt} &= 2K \cos(\alpha) \sin(\theta_2 - \theta_1) = 2K \cos(\alpha) \sin(-\phi) = -2K \cos(\alpha) \sin(\phi).
+\end{align}
+
+This shows how the phase difference's rate of change depends on both the sine of the phase difference and the cosine of the additional phase shift \(\alpha\).
+
+\subsection{Equilibrium and Stability Analysis}
+\subsubsection{Equilibrium Points}
+To find the equilibrium points, we set the rate of change of the phase difference to zero:
+\begin{equation}
+    -2K \cos(\alpha) \sin(\phi) = 0
+\end{equation}
+This condition implies that:
+\begin{itemize}
+    \item \(\sin(\phi) = 0\) leading to \(\phi = n\pi\), where \(n\) is an integer, suggesting potential equilibrium points at \(\phi = 0, \pi, 2\pi, \ldots\).
+    \item \(\cos(\alpha) = 0\) would make the derivative zero regardless of \(\phi\), but this is not considered further without additional context or constraints on \(\alpha\).
+\end{itemize}
+
+\subsubsection{Stability Analysis}
+For stability analysis, we particularly consider small perturbations around \(\phi = \pi\). Let \(\phi = \pi + \epsilon\) where \(\epsilon\) is a small perturbation:
+\begin{equation}
+    \sin(\phi) \approx \sin(\pi + \epsilon) = -\epsilon
+\end{equation}
+The linearized form of the differential equation becomes:
+\begin{equation}
+    \frac{d\epsilon}{dt} = 2K \cos(\alpha) \epsilon
+\end{equation}
+To ensure stability, the coefficient of \(\epsilon\) in the linearized equation must be negative, implying:
+\begin{equation}
+    K \cos(\alpha) < 0
+\end{equation}
+Given \(K > 0\) (assuming the coupling strength is positive), this requires:
+\begin{equation}
+    \cos(\alpha) < 0
+\end{equation}
+Hence, \(\alpha\) must lie in the range \(\frac{\pi}{2} < \alpha < \frac{3\pi}{2}\) for the equilibrium at \(\phi = \pi\) to be stable.
+
+\subsection{Conclusion 1}
+The analysis reveals that for stable anti-phase synchronization (\(\phi = \pi\)) between the two oscillators, the phase shift \(\alpha\) must ensure that \(\cos(\alpha)\) is negative. This condition is met when \(\alpha\) is in the second or third quadrant of the unit circle, specifically within the range \(\frac{\pi}{2} < \alpha < \frac{3\pi}{2}\). This analysis provides insight into how intrinsic phase shifts between oscillators influence their collective dynamics and the conditions necessary for stabilizing their anti-phase state.
+
+\subsection{Symmetric Interchangeability of Phase Differences}
+In the given model, where the phase dynamics between two coupled oscillators are described, an assumption can be introduced that the phase difference \(\theta_1 - \theta_2\) and its inverse \(\theta_2 - \theta_1\) are symmetrically interchangeable. This assumption allows us to simplify the analysis and focus on the inherent symmetry in the interaction dynamics.
+
+\subsubsection{Model Formulation with Symmetric Interchangeability}
+Given the differential equations:
+\begin{align}
+    \frac{d\theta_1}{dt} &= \omega - K \sin(\theta_1 - \theta_2 + \alpha), \\
+    \frac{d\theta_2}{dt} &= \omega - K \sin(\theta_2 - \theta_1 + \alpha).
+\end{align}
+Assuming symmetry, we consider \(\theta_1 - \theta_2\) and \(\theta_2 - \theta_1\) to be functionally equivalent in their contribution to the dynamics, only differing by a sign and a phase shift. This leads us to analyze the phase difference \(\phi = \theta_1 - \theta_2\) with the understanding that the behaviors for \(\phi\) and \(-\phi\) are mirrored.
+
+\subsubsection{Implications of Symmetry}
+With symmetric interchangeability, the differential for the phase difference, \(\frac{d\phi}{dt}\), can be expressed symmetrically as:
+\[
+\frac{d\phi}{dt} = -2K \sin(\phi + \alpha).
+\]
+This form implies that the system's response to the phase difference \(\phi\) and its negative \(-\phi\) will have identical magnitudes but opposite directions, reflecting the symmetrical nature of their interactions.
+
+\subsubsection{Stability Analysis Under Symmetric Conditions}
+The stability of the system can be analyzed by setting \(\frac{d\phi}{dt} = 0\), which yields:
+\[
+\sin(\phi + \alpha) = 0.
+\]
+Solving for \(\phi\) gives equilibrium points at \(\phi + \alpha = n\pi\), where \(n\) is an integer. To ensure these points are stable:
+\[
+\cos(\phi + \alpha) < 0 \quad \text{for stability around these points.}
+\]
+The linear stability can further be examined by considering small perturbations around these equilibrium points and analyzing the resulting behavior based on the derived conditions.
+
+\subsubsection{Analysis of Small Perturbations and Stability}
+Next, we consider small perturbations around \(\phi + \alpha = n\pi\). Let \(\epsilon\) be a small perturbation such that \(\phi = n\pi - \alpha + \epsilon\). Substituting into the sinusoidal function, we use the linear approximation:
+\[
+\sin(\phi + \alpha) \approx \sin(n\pi + \epsilon) = (-1)^n \epsilon.
+\]
+The differential equation for \(\phi\) then becomes:
+\[
+\frac{d\phi}{dt} = -2K \sin(\phi + \alpha) \approx -2K (-1)^n \epsilon = (-1)^{n+1} 2K \epsilon.
+\]
+The sign of the coefficient of \(\epsilon\) in this linearized equation determines the stability:
+\begin{itemize}
+    \item If \((-1)^{n+1} 2K > 0\), the equilibrium point is unstable because perturbations grow exponentially.
+    \item If \((-1)^{n+1} 2K < 0\), the equilibrium point is stable because perturbations decay exponentially.
+\end{itemize}
+This implies that for stability, \(n\) must be such that \((-1)^{n+1} 2K\) is negative. Specifically:
+\begin{itemize}
+    \item For even \(n\), the term \((-1)^{n+1}\) becomes \(-1\) and the condition for stability is \(K > 0\).
+    \item For odd \(n\), the term \((-1)^{n+1}\) becomes \(1\) and the condition for stability is \(K < 0\), which contradicts the positive nature of \(K\), indicating that these points are typically unstable.
+\end{itemize}
+
+\subsubsection{Conclusion 2}
+This analysis highlights that only certain values of \(\phi\) relative to \(\alpha\) lead to stable equilibrium, specifically when \(n\) is even, which corresponds to \(\phi + \alpha = 2k\pi\) (where \(k\) is an integer). These conditions ensure that small deviations from the equilibrium will decay, leading to a stable system under minor perturbations. This approach underscores the importance of the phase shift \(\alpha\) and the system's intrinsic properties in determining the overall stability and behavior of the coupled oscillators.
+
 \section{Model Formulation for Frog Interaction Dynamics}
 
 \begin{center}

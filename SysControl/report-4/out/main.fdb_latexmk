@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber out/main"] 0 "out/main.bcf" "out/main.bbl" "out/main" 1719861751.83764 0
+["biber out/main"] 0 "out/main.bcf" "out/main.bbl" "out/main" 1719959818.10261 0
   "out/main.bcf" 0 -1 0 "pdflatex"
   "references.bib" 0 -1 0 ""
   (generated)
   "out/main.bbl"
   "out/main.blg"
   (rewritten before read)
-["pdflatex"] 1719861749.07658 "/Users/mlnick/Documents/University/Git/Tsukuba-Master/SysControl/report-4/main.tex" "out/main.pdf" "main" 1719861751.83827 0
-  "/Users/mlnick/Documents/University/Git/Tsukuba-Master/SysControl/report-4/main.tex" 1719861747.05346 18558 26c6c9074a0c8e4c408076e9a78de087 ""
+["pdflatex"] 1719959815.379 "/Users/mlnick/Documents/University/Git/Tsukuba-Master/SysControl/report-4/main.tex" "out/main.pdf" "main" 1719959818.10323 0
+  "/Users/mlnick/Documents/University/Git/Tsukuba-Master/SysControl/report-4/main.tex" 1719959813.99303 26442 669e7797139b4dddff2000c00090fb79 ""
   "/Users/mlnick/documents/images/tsukuba-logo.png" 1717395591.74851 71291 9cd7cf0ef65151820faed22786f06ecb ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -98,12 +98,13 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1715960975.20763 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1715960809 8221417 0bcef43575e18d329bc632ae79bbcb0d ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "main.tex" 1719861747.05346 18558 26c6c9074a0c8e4c408076e9a78de087 ""
-  "materials/task1.jpeg" 1719842211.75804 86776 4f36386a698e253d7e1f064aecdd4fae ""
-  "materials/task2.jpeg" 1719849405.86576 89513 a91a667fbc8624ebca263e40a8d573f8 ""
-  "out/main.aux" 1719861751.31911 4931 3de3aad9a660adebc5b47ccea03d5f28 "pdflatex"
+  "main.tex" 1719959813.99303 26442 669e7797139b4dddff2000c00090fb79 ""
+  "materials/task0.jpeg" 1719955238.09604 85182 6d400b2dd87544223f2653adb62864b0 ""
+  "materials/task1.jpeg" 1719868202.62685 86776 4f36386a698e253d7e1f064aecdd4fae ""
+  "materials/task2.jpeg" 1719868202.62852 89513 a91a667fbc8624ebca263e40a8d573f8 ""
+  "out/main.aux" 1719959817.59277 6586 248d86320911692894bacba55fdf75b7 "pdflatex"
   "out/main.bbl" 0 -1 0 "biber out/main"
-  "out/main.run.xml" 1719861751.33078 2311 e66a0e3ff336a5af941c7fe634558519 "pdflatex"
+  "out/main.run.xml" 1719959817.60223 2311 e66a0e3ff336a5af941c7fe634558519 "pdflatex"
   (generated)
   "out/main.aux"
   "out/main.bcf"
