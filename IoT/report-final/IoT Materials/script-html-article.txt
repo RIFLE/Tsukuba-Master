@@ -1,0 +1,124 @@
+<h5><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719932375/article/IoT_Preview_Image_de4eff97f1d971087d3e368ba403c49e38534413.png" alt="Article Top Preview Image" width="827" height="465" /></h5>
+<h2>ショーケース概要:</h2>
+<p style="text-align: center;"><iframe src="//www.youtube.com/embed/yGPfKkjDIts" width="560" height="314" allowfullscreen="allowfullscreen"></iframe></p>
+<p>このプロジェクトでは、<strong>低コストの距離センサー</strong>を使用して、物理的な接触なしにインタラクティブなタッチスクリーンをシミュレートする技術を開発しました。下記の記事では、我々のシステムがどのようにして従来のインタラクションを再定義するかを探ります。</p>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940884/article/0-Expensive-lazer-technology_f2edd8273e38f4603d7f0a939fe7eb8a52bc1e29.png" alt="0-Expensive-lazer-technology" width="403" height="227" /></h5>
+<p>従来のタッチスクリーン技術は高価なレーザー技術を使用していますが、我々のシステムは安価で容易に入手可能なセンサーを使用して同様の結果を達成します。</p>
+<h2>理論的概要:</h2>
+<p>三辺測量法（トリラテレーション）は、3つの既知の位置からの距離を使用して物体の位置を計算する手法です。このプロジェクトでは、超音波センサーを使用して手の位置を測定し、タッチスクリーンの操作に応用しています。</p>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940256/article/1-Trilateriation-diagram_d410aec62a29226fded3d150acfe4978af60b4c6.png" alt="Trilateration diagram" width="275" height="215" /></h5>
+<p>上の図は、三辺測量法の概念を示しています。3つの既知の位置（A1、A2、A3）からの距離（d1、d2、d3）を使用して、未知の位置（i）を計算します。</p>
+<h5>&nbsp;</h5>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940313/article/2-Equations_df2d36ab2391dea152f5bb859d196e09988fc607.png" alt="Equations - theory of use" width="185" height="137" /></h5>
+<h5>&nbsp;</h5>
+<h5>&nbsp;</h5>
+<p>このような上記の数式は、三辺測量法の計算式を示しています。x座標とy座標は、3つの距離測定値（D1、D2、D3）を使用して計算されます。</p>
+<p>三辺測量システムコードサンプルを以下に示します。</p>
+<pre class="language-python"><code>import numpy
+
+P1 = [0,0] #upper position
+P2 = [-10,10] #anyway position
+P3 = [10,10] #anyway position
+
+def trilateration(P1, P2, P3, r1, r2, r3):
+#r1,r2,r3 is the distance of staff and sensor
+
+  p1 = numpy.array([0, 0])
+  p2 = numpy.array([P2[0] - P1[0], P2[1] - P1[1]])
+  p3 = numpy.array([P3[0] - P1[0], P3[1] - P1[1]])
+  v1 = p2 - p1
+  v2 = p3 - p1
+
+  Xn = (v1)/numpy.linalg.norm(v1)
+
+  tmp = numpy.cross(v1, v2)
+
+  Zn = (tmp)/numpy.linalg.norm(tmp)
+
+  Yn = numpy.cross(Xn, Zn)
+
+  i = numpy.dot(Xn, v2)
+  d = numpy.dot(Xn, v1)
+  j = numpy.dot(Yn, v2)
+
+  X = ((r1**2)-(r2**2)+(d**2))/(2*d)
+  Y = (((r1**2)-(r3**2)+(i**2)+(j**2))/(2*j))-((i/j)*(X))
+  Z1 = numpy.sqrt(max(0, r1**2-X**2-Y**2))
+  Z2 = -Z2
+
+  K1 = P1 + X * Xn + Y * Yn + Z1 * Zn
+  K2 = P1 + X * Xn + Y * Yn + Z2 * Zn
+  return K1,K2</code></pre>
+<h5>説明</h5>
+<p><strong>＊</strong> まず、3つの既知のポイント<code>P1</code>、<code>P2</code>、<code>P3</code>を定義します。これらは基準となるポイントです。</p>
+<p><strong>＊</strong> 関数<code>trilateration</code>は、これらのポイントと、それぞれのポイントからターゲットまでの距離<code>r1</code>、<code>r2</code>、<code>r3</code>を引数に取ります。この関数内で、まず<code>P1</code>を原点として設定し、<code>P2</code>と<code>P3</code>を<code>P1</code>からの相対座標に変換します。</p>
+<p><strong>＊</strong> 次に、<code>v1</code>と<code>v2</code>を計算します。これらはそれぞれ<code>P1</code>から<code>P2</code>、<code>P1</code>から<code>P3</code>へのベクトルです。そして、<code>v1</code>の単位ベクトル<code>Xn</code>を計算します。</p>
+<p><strong>＊</strong> <code>v1</code>と<code>v2</code>の外積を計算し、これを基に<code>Zn</code>、すなわち<code>v1</code>と<code>v2</code>に垂直な単位ベクトルを求めます。さらに、<code>Xn</code>と<code>Zn</code>の外積を計算し、<code>Yn</code>を求めます。</p>
+<p><strong>＊</strong> その後、<code>Xn</code>と<code>v2</code>の内積<code>i</code>、<code>Xn</code>と<code>v1</code>の内積<code>d</code>、および<code>Yn</code>と<code>v2</code>の内積<code>j</code>を計算します。これらの内積は、各ベクトルの投影を表しています。</p>
+<p><strong>＊</strong> 次に、三辺測量法の公式を使用して<code>X</code>と<code>Y</code>の座標を計算します。</p>
+<p><strong>＊</strong> 最後に、<code>Z1</code>と<code>Z2</code>を計算します。これは、2つの可能な高さの座標です。そして、最終的な2つの解である<code>K1</code>と<code>K2</code>を計算し、これらを返します。</p>
+<h2>実装:</h2>
+<p>プロジェクトの理論的な基盤として、<strong>三辺測量法</strong>を使用して物体の位置を計算します。Raspberry Piと2つのHC-SR04超音波距離センサーを使用して、手の位置を計算し、タッチスクリーンの操作に応用します。</p>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940378/article/3-Concept-schematics_e859e2d1de58ba19e6017621b428eb29d93b2ce0.png" alt="Concept Schematics" width="274" height="263" /></h5>
+<p>この図は、センサーの有効エリアと交差する光線のセクターを示しています。</p>
+<p>図から分かるように、赤外線センサーの使用にはいくつかの制限があります。仮想タッチスクリーンの機能領域は、センサーから発射される光線の交差部分である有効エリアに限定されます。さたに、一つのセンサーブロックは2つのセンサーブロックをそれぞれ2つ使用するため、隣接するセンサーが干渉しないように、光を一つずつ発光する必要があります。これはノイズを引き起こすことがありますが、この設定では問題ありませんでした。</p>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940430/article/4-Calibration-diagram_177cdab9db8ba1e9993f5a692b3a74be37558d3e.png" alt="Calibration Diagram" width="328" height="172" /></h5>
+<p>有効エリアが定義された後、仮想タッチスクリーンの長方形エリアを定義することが目標です。これは、接続されたデバイスの画面に対応するエリアに対応します。</p>
+<h5 style="text-align: center;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940452/article/5-Concept-transition-device-relation_d2685707f32def3d5bed07c46f3b640e527fe24a.png" alt="5-Concept-transition-device-relation" width="450" height="277" /></h5>
+<p>デバイス（スマートフォンまたはPC）は、<strong>UDP</strong>を介してスタンドのRaspberry Piに接続され、センサーをリスニングノードとして使用します。</p>
+<h2>テストスタンドとコンポーネント:</h2>
+<p>ハードウェアとテストスタンドを説明します。</p>
+<p>このプロジェクトで使用されている主要なコンポーネントは以下の通りです：</p>
+<ul>
+<li><strong>Raspberry Pi 4 Type B</strong>：この小型コンピュータは、センサーからのデータを処理し、システム全体を制御します。</li>
+<li><strong>ブレッドボード</strong>：コンポーネントを接続するためのプロトタイピング用ボードです。</li>
+<li><strong>HC-SR04超音波距離センサー</strong>：安価で高精度の距離測定センサーです。このプロジェクトでは2つのセンサーブロックを使用しています。</li>
+</ul>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940485/article/6-Infrared-sensor_f671e752b39b8eeee6976ea25f667324abd70c78.png" alt="6-Infrared-sensor" width="282" height="173" /></h5>
+<p>使用される1つのHC-SR04センサーを示します。画像から、ブロックが2つのセンサーを含んでいます。</p>
+<h5><img style="display: block; margin-left: auto; margin-right: auto;" src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940497/article/7-Test-stand_db9f7291ad454a63c0d72771f1d2d60247ec424d.png" alt="7-Test-stand" width="587" height="279" /></h5>
+<p>テストスタンドのセットアップと構成を示します。</p>
+<p>テストスタンドは、上記のコンポーネントを組み合わせたもので、約30度の角度で向き合う2つのセンサーブロックを含んでいます。これにより、より便利な交差エリアが形成されます。すべてのコンポーネントは中央のブレッドボードに接続されています。Raspberry Piはソケットから電源を供給されています。データは0.5秒ごとに記録および更新されます。最新バージョンのPythonを使用しています。</p>
+<h2>使用方法:</h2>
+<p>アプリケーションの使用方法について、ステップバイステップの手順を提供します。</p>
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+<div style="flex: 1; text-align: center; margin-right: 10px;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940509/article/8-Screen-showcase-startup_5899587e5b390ad4ffb57f2e9f492d7a790828a3.png" alt="8-Screen-showcase-startup" width="167" height="321" />
+<p>アプリケーションの起動直後には5つのボタンが表示されます: カーソル色変更、背景色変更、ボタン、キャリブレーション、接続。</p>
+</div>
+<div style="flex: 1; text-align: center; margin-left: 10px;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940540/article/9-Screen-showcase-with-pointer-after-connection_3f1643908078b978e1f83898f5100f056960006f.png" alt="9-Screen-showcase-with-pointer-after-connection" width="164" height="324" />
+<p>最初のステップは、デバイスをRaspberry Piと同じネットワークに接続することです。次に接続ボタンを押すと、接続メッセージが表示され、カーソルが表示されます。</p>
+</div>
+</div>
+<div style="text-align: center; margin-bottom: 20px;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940585/article/10-Using-hand-for-calibration_28f2a51c04d2d3ef7e0d729cb3fb0812559cb96e.png" alt="10-Using-hand-for-calibration" width="281" height="325" />
+<p>次に、センサーの前に手を動かしてカーソルが動くか確認します。動きが検出されたら、キャリブレーションを行います。</p>
+</div>
+<h5 style="text-align: center;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940602/article/11-Screen-showcase-calibration-procedure_206afa5325180b7e1f30e07aeae95ce2fa1d5c6a.png" alt="11-Screen-showcase-calibration-procedure" width="598" height="109" /></h5>
+<p>キャリブレーション手順は3つの簡単なステップに分かれています。</p>
+<ol>
+<li>交差する光線の有効エリア内で、仮想タッチスクリーンの長方形エリアを定義します。</li>
+<li>キャリブレーションボタンをタップし、手を上部左の位置に置きます。キャリブレーションが完了するまで手を保持します。</li>
+<li>同様に、手を右下の位置に移動して保持し、キャリブレーション完了のメッセージが表示されるまで待ちます。</li>
+</ol>
+<h5 style="text-align: center;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940632/article/12-Screen-showcase-click_02f173501adcc5460366133c14abd1d2e6f127db.png" alt="12-Screen-showcase-click" width="161" height="321" /></h5>
+<p>定義された有効エリアを使用して、画面上のカーソルを動かします。このエリア内の手の位置が画面上の位置に対応します。</p>
+<p>手の位置を固定するとクリックが発生します。</p>
+<h2>改善点:</h2>
+<p><strong>＊ </strong>赤外線エミッターの場合、指示対象（例えば、手）が丸い場合に計算が最も正確です。これはキャリブレーションの過程で特に重要で、正確にキャリブレーションされたエリアはより正確なマッピングをもたらします。より良いセンサーを使用することが潜在的な改善点です。</p>
+<p><strong>＊</strong> 現在の実装は、設計上および赤外線放射の特性により、2つの赤外線センサーブロックのみを使用して記録されたデータのノイズに制約されています。より多くのセンサーを使用することで、位置の計算がより正確になり、計算の平均化に関連する遅延が減少します。</p>
+<p><strong>＊</strong> ノイズを減少させるために、このようなシステムの設計にMLアルゴリズムを組み込んでデータを前処理することが考えられます。これにより、指示対象が完全に丸くないために記録された位置の不一致にシステムがよりうまく対処できるようになります。</p>
+<h5 style="text-align: center;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940677/article/14-Additional-distracting-3_c9330227b773980e5a600ccb4079c43eff99e7af.png" alt="14-Additional-distracting-3" width="348" height="191" /></h5>
+<p>この技術は、教育、医療、エンターテイメントなど、多岐にわたる分野での応用が期待されています。未来のインタラクティブ技術としての可能性を秘めています。</p>
+<h2>発展者連絡詳細:</h2>
+<div style="display: flex; align-items: center; justify-content: space-between;">
+<div style="flex: 1; text-align: left; margin-right: 20px;"><img src="http://res.cloudinary.com/rs-designspark-live/image/upload/v1719940701/article/15-Additional-distracting-1_9f5a332076dbe316cc8edb223bbeed8d7d1bfc05.png" alt="15-Additional-distracting-1" width="297" height="248" /></div>
+<div style="flex: 2;">
+<p>GitHubリポジトリのリンク: <a href="https://github.com/RIFLE/iot-team-project" target="_blank" rel="noopener">https://github.com/RIFLE/iot-team-project</a></p>
+<p>開発チーム (GitHubのリンク):</p>
+<ul>
+<li><a href="https://github.com/LFRusso">Luiz Fernando Santos</a> (Idea and development)</li>
+<li><a href="https://github.com/shakeitup108">Sasaki Nagi</a> (Assistance and development contributions)</li>
+<li><a href="https://github.com/RIFLE">Mamanchuk Mykola</a> (Assistance and management)</li>
+</ul>
+<p>筑波大学 組込みプログラム開発 2024</p>
+</div>
+</div>
