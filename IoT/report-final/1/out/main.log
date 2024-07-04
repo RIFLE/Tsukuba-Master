@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.18)  4 JUL 2024 08:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.18)  5 JUL 2024 01:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -653,17 +653,18 @@ File: ../IoT Materials/article images/3-Concept-schematics.png Graphic file (typ
 <use ../IoT Materials/article images/3-Concept-schematics.png>
 Package pdftex.def Info: ../IoT Materials/article images/3-Concept-schematics.png  used on input line 115.
 (pdftex.def)             Requested size: 91.7836pt x 88.02553pt.
-<../IoT Materials/article images/6-Infrared-sensor.png, id=158, 305.943pt x 187.902pt>
+ [3{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <../IoT Materials/article images/3-Concept-schematics.png>]
+<../IoT Materials/article images/6-Infrared-sensor.png, id=165, 305.943pt x 187.902pt>
 File: ../IoT Materials/article images/6-Infrared-sensor.png Graphic file (type png)
 <use ../IoT Materials/article images/6-Infrared-sensor.png>
 Package pdftex.def Info: ../IoT Materials/article images/6-Infrared-sensor.png  used on input line 136.
 (pdftex.def)             Requested size: 91.7836pt x 56.37103pt.
-<../IoT Materials/article images/7-Test-stand.png, id=159, 616.704pt x 293.4162pt>
+<../IoT Materials/article images/7-Test-stand.png, id=166, 616.704pt x 293.4162pt>
 File: ../IoT Materials/article images/7-Test-stand.png Graphic file (type png)
 <use ../IoT Materials/article images/7-Test-stand.png>
 Package pdftex.def Info: ../IoT Materials/article images/7-Test-stand.png  used on input line 142.
 (pdftex.def)             Requested size: 185.01262pt x 88.02553pt.
- [3{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <../IoT Materials/article images/3-Concept-schematics.png>] [4 <../IoT Materials/article images/6-Infrared-sensor.png> <../IoT Materials/article images/7-Test-stand.png>]
+ [4 <../IoT Materials/article images/6-Infrared-sensor.png> <../IoT Materials/article images/7-Test-stand.png>]
 File: ../IoT Materials/article images/1-Trilateriation-diagram.png Graphic file (type png)
 <use ../IoT Materials/article images/1-Trilateriation-diagram.png>
 Package pdftex.def Info: ../IoT Materials/article images/1-Trilateriation-diagram.png  used on input line 203.
@@ -683,45 +684,50 @@ File: ../IoT Materials/article images/5-Concept-transition-device-relation.png G
 <use ../IoT Materials/article images/5-Concept-transition-device-relation.png>
 Package pdftex.def Info: ../IoT Materials/article images/5-Concept-transition-device-relation.png  used on input line 232.
 (pdftex.def)             Requested size: 149.7446pt x 92.07268pt.
- [6 <../IoT Materials/article images/4-Calibration-diagram.png> <../IoT Materials/article images/5-Concept-transition-device-relation.png>]
-<../IoT Materials/article images/8-Screen-showcase-startup.png, id=197, 227.8914pt x 438.438pt>
+ [6 <../IoT Materials/article images/4-Calibration-diagram.png>]
+<../IoT Materials/article images/8-Screen-showcase-startup.png, id=195, 227.8914pt x 438.438pt>
 File: ../IoT Materials/article images/8-Screen-showcase-startup.png Graphic file (type png)
 <use ../IoT Materials/article images/8-Screen-showcase-startup.png>
 Package pdftex.def Info: ../IoT Materials/article images/8-Screen-showcase-startup.png  used on input line 247.
 (pdftex.def)             Requested size: 91.15494pt x 175.37209pt.
-<../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png, id=198, 237.5274pt x 469.755pt>
+<../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png, id=196, 237.5274pt x 469.755pt>
 File: ../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png Graphic file (type png)
 <use ../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png>
 Package pdftex.def Info: ../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png  used on input line 255.
 (pdftex.def)             Requested size: 95.00926pt x 187.89867pt.
-<../IoT Materials/article images/10-Using-hand-for-calibration.png, id=199, 237.0456pt x 273.6624pt>
+<../IoT Materials/article images/10-Using-hand-for-calibration.png, id=197, 237.0456pt x 273.6624pt>
 File: ../IoT Materials/article images/10-Using-hand-for-calibration.png Graphic file (type png)
 <use ../IoT Materials/article images/10-Using-hand-for-calibration.png>
 Package pdftex.def Info: ../IoT Materials/article images/10-Using-hand-for-calibration.png  used on input line 263.
 (pdftex.def)             Requested size: 165.93077pt x 191.56236pt.
- [7 <../IoT Materials/article images/8-Screen-showcase-startup.png> <../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png> <../IoT Materials/article images/10-Using-hand-for-calibration.png>]
-<../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png, id=211, 922.647pt x 168.1482pt>
+<../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png, id=198, 922.647pt x 168.1482pt>
 File: ../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png Graphic file (type png)
 <use ../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png>
 Package pdftex.def Info: ../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png  used on input line 273.
 (pdftex.def)             Requested size: 369.05226pt x 67.25807pt.
-<../IoT Materials/article images/12-Screen-showcase-click.png, id=212, 254.8722pt x 507.8172pt>
+ [7 <../IoT Materials/article images/5-Concept-transition-device-relation.png> <../IoT Materials/article images/8-Screen-showcase-startup.png> <../IoT Materials/article images/9-Screen-showcase-with-pointer-after-connection.png>]
+<../IoT Materials/article images/12-Screen-showcase-click.png, id=210, 254.8722pt x 507.8172pt>
 File: ../IoT Materials/article images/12-Screen-showcase-click.png Graphic file (type png)
 <use ../IoT Materials/article images/12-Screen-showcase-click.png>
 Package pdftex.def Info: ../IoT Materials/article images/12-Screen-showcase-click.png  used on input line 288.
 (pdftex.def)             Requested size: 101.94707pt x 203.12328pt.
- [8 <../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png> <../IoT Materials/article images/12-Screen-showcase-click.png>]
-<../IoT Materials/article images/14-Additional-distracting-3.png, id=221, 431.211pt x 237.0456pt>
+ [8 <../IoT Materials/article images/10-Using-hand-for-calibration.png> <../IoT Materials/article images/11-Screen-showcase-calibration-procedure.png>]
+<../IoT Materials/article images/14-Additional-distracting-3.png, id=219, 431.211pt x 237.0456pt>
 File: ../IoT Materials/article images/14-Additional-distracting-3.png Graphic file (type png)
 <use ../IoT Materials/article images/14-Additional-distracting-3.png>
 Package pdftex.def Info: ../IoT Materials/article images/14-Additional-distracting-3.png  used on input line 306.
 (pdftex.def)             Requested size: 258.72859pt x 142.22844pt.
- [9 <../IoT Materials/article images/14-Additional-distracting-3.png>] [10]
+ [9 <../IoT Materials/article images/12-Screen-showcase-click.png> <../IoT Materials/article images/14-Additional-distracting-3.png>] [10]
+Overfull \hbox (29.64836pt too wide) in paragraph at lines 361--362
+\OT1/cmtt/m/n/12 www . rs -[] online . com / designspark / distance -[] sensor -[] virtual -[] touchscreen -[] jp$[] \OT1/cmr/m/n/12 [Pub-
+ []
+
+[11]
 Overfull \hbox (7.48201pt too wide) in paragraph at lines 362--363
 \OT1/cmtt/m/n/12 arduino . cc / t / using -[] 3 -[] modified -[] hc -[] sr04 -[] to -[] triangulate -[] the -[] position -[] of -[]
  []
 
-[11] [12] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+[12] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) [13] (out/main.aux)
  ***********
@@ -743,7 +749,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,9n,81p,1174b,1319s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on out/main.pdf (13 pages, 4255709 bytes).
+Output written on out/main.pdf (13 pages, 4256235 bytes).
 PDF statistics:
  369 PDF objects out of 1000 (max. 8388607)
  299 compressed objects within 3 object streams

@@ -219,6 +219,7 @@ INPUT ../IoT Materials/article images/0-Expensive-lazer-technology.png
 INPUT ../IoT Materials/article images/0-Expensive-lazer-technology.png
 INPUT ../IoT Materials/article images/0-Expensive-lazer-technology.png
 INPUT ../IoT Materials/article images/0-Expensive-lazer-technology.png
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT ../IoT Materials/article images/1-Trilateriation-diagram.png
 INPUT ../IoT Materials/article images/1-Trilateriation-diagram.png
@@ -231,18 +232,17 @@ INPUT ../IoT Materials/article images/3-Concept-schematics.png
 INPUT ../IoT Materials/article images/3-Concept-schematics.png
 INPUT ../IoT Materials/article images/3-Concept-schematics.png
 INPUT ../IoT Materials/article images/3-Concept-schematics.png
-INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT ../IoT Materials/article images/6-Infrared-sensor.png
-INPUT ../IoT Materials/article images/6-Infrared-sensor.png
-INPUT ../IoT Materials/article images/6-Infrared-sensor.png
-INPUT ../IoT Materials/article images/6-Infrared-sensor.png
-INPUT ../IoT Materials/article images/6-Infrared-sensor.png
-INPUT ../IoT Materials/article images/7-Test-stand.png
-INPUT ../IoT Materials/article images/7-Test-stand.png
-INPUT ../IoT Materials/article images/7-Test-stand.png
-INPUT ../IoT Materials/article images/7-Test-stand.png
-INPUT ../IoT Materials/article images/7-Test-stand.png
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+INPUT ../IoT Materials/article images/6-Infrared-sensor.png
+INPUT ../IoT Materials/article images/6-Infrared-sensor.png
+INPUT ../IoT Materials/article images/6-Infrared-sensor.png
+INPUT ../IoT Materials/article images/6-Infrared-sensor.png
+INPUT ../IoT Materials/article images/6-Infrared-sensor.png
+INPUT ../IoT Materials/article images/7-Test-stand.png
+INPUT ../IoT Materials/article images/7-Test-stand.png
+INPUT ../IoT Materials/article images/7-Test-stand.png
+INPUT ../IoT Materials/article images/7-Test-stand.png
+INPUT ../IoT Materials/article images/7-Test-stand.png
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
