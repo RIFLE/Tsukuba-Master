@@ -1,0 +1,255 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[fleqn]{amsmath} % This package with the fleqn option aligns equations to the left
+\setlength{\mathindent}{0pt} % Set indentation from the left margin
+
+\usepackage{amssymb} % Required for math symbols
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage[backend=biber, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{a4paper, margin=1in}
+
+{
+\title{
+    \includegraphics[width=0.44\textwidth]{/Users/nicolasxx/documents/images/tsukuba-logo.png} \\
+    \textbf{Midterm Presentation Attendance} \\
+    \vspace{3mm}    
+    Report 2 \\
+    on Simulating the Effects of
+    Environmental Complexity in
+    Agent-based Modeling
+
+\author{\textbf{report submitter: }Mamanchuk Mykola, SID.202420671 \\
+\textbf{      for speaker: }Alison R., SID.202320694}
+\date{\today}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\setlength{\fboxsep}{0pt} % Removes padding around the image
+\setlength{\fboxrule}{0.5pt} % Sets the thickness of the border
+
+\begin{document}
+
+\maketitle
+
+% #################### STARTING HERE ####################
+
+\section{Introduction to Research}
+The introduced concept of \textbf{Agent-Based Modeling and Simulation} (ABMS) is a computational approach used to model systems as simulations of autonomously interacting agents. This method is particularly valuable in scenarios where direct experimentation on the systems is impractical or difficult. ABMS has been employed across various domains to better understand complex systems, \textbf{particulary where the behavior of the whole system emerges from the interactions of individual agents}.
+
+Referred interactions can be of any complexity, and they drive the overall dynamics of the system being studied. The flexibility of ABMS allows it to be applied to a wide range of systems, which is demonstrated by the research of the speaker.
+
+A \textbf{common challenge in ABMS is that many aspects of the real systems are often simplified or abstracted away}, usually due to computational constraints. Introduced \textbf{research under review seeks to explore whether reintroducing some of these complexities into the simulation can yield more accurate or insightful results}. By starting with a simple model and gradually adding complexity, the study aims to analyze the effects of these changes on the simulation outcomes, providing a deeper understanding of the systems being modeled.
+
+\section{Chosen System for Agent-Based Simulation}
+
+The \textbf{wolf-sheep predation model} is a well-known agent-based simulation that illustrates the interactions within a simple predator-prey ecosystem. This model is \textbf{primarily used to explore the stability of ecosystems, where stability is defined as the state of equilibrium where no species becomes extinct} over time.
+
+\subsection{Simulation Environment and Agents}
+
+\textbf{Environment:} The simulation environment is a two-dimensional grid where each cell may contain edible grass, represented visually by different colors. Grass is an essential resource for sheep in the simulation, as it provides the energy needed for their survival.
+
+\vspace{2mm}
+\textbf{Agents:}
+\begin{itemize}
+    \item \textbf{Sheep:} Each sheep has an energy property that depletes over time and can be replenished by consuming grass. Sheep move randomly across the grid, and if their energy reaches zero, they are removed from the simulation.
+    \item \textbf{Wolves:} Wolves function similarly to sheep but must consume sheep to restore their energy. The energy of the wolf increases when it consumes a sheep, which is then removed from the simulation.
+\end{itemize}
+
+\subsection{Interactions and Dynamics}
+
+The \textbf{interactions} within this model are based on the consumption of resources:
+\begin{itemize}
+    \item \textbf{Sheep and Environment:} Sheep consume grass to gain energy, and grass regrows over time.
+    \item \textbf{Wolf and Sheep:} Wolves prey on sheep, reducing the sheep population while increasing their energy.
+\end{itemize}
+
+\textbf{Reproduction} is another critical aspect here:
+\begin{itemize}
+    \item Agents may reproduce if they have sufficient energy, leading to the creation of offspring with an energy level that is a random value, contributing to the dynamics of the population.
+\end{itemize}
+
+\subsection{Parameters and Phases}
+
+Several parameters control the simulation, including:
+\begin{itemize}
+    \item Grass growth rate and energy provided
+    \item Initial population counts and maximum energy levels
+    \item Energy consumption rates and reproduction probabilities
+\end{itemize}
+
+These parameters influence the system's dynamics and outcomes, providing a means to test different scenarios and environmental complexities.
+
+\subsection{Implementation and Simulation Phases}
+
+The \textbf{research reimplements the wolf-sheep predation model} using the MASON toolkit, allowing for \textbf{enhanced complexity and control} over the simulation. The process begins with initializing the environment and agent populations, followed by the simulation of interactions over time, driven by the defined parameters.
+
+This implementation provides a platform to \textbf{explore how variations in environmental factors}, such as terrain and resource availability, \textbf{affect the stability and behavior} of the ecosystem.
+
+\section{Simulation Phases}
+
+The following two figures describe the initialization and simulation phases of the system.
+
+\begin{algorithm}
+\caption{Wolf-Sheep Predation System Initialization}\label{alg:wolf-sheep}
+\begin{algorithmic}[1]
+\State \textbf{Initialization:}
+\State Set \textit{grassInitRatio} $\leftarrow 0.2$
+\State Set \textit{grassRegrowTime} $\leftarrow 60$
+\State Set \textit{grassEnergyAdded} $\leftarrow 5$
+\State Set \textit{wolfInitCount} $\leftarrow 50$
+\State Set \textit{wolfMaxEnergy} $\leftarrow 100$
+\State Set \textit{wolfEnergyConsumption} $\leftarrow 1$
+\State Set \textit{wolfReproduceEnergyThreshold} $\leftarrow 50$
+\State Set \textit{wolfReproduceRate} $\leftarrow 5\%$
+\State Set \textit{sheepInitCount} $\leftarrow 50$
+\State Set \textit{sheepMaxEnergy} $\leftarrow 40$
+\State Set \textit{sheepEnergyConsumption} $\leftarrow 1$
+\State Set \textit{sheepReproduceEnergyThreshold} $\leftarrow 20$
+\State Set \textit{sheepReproduceRate} $\leftarrow 5\%$
+\State \textbf{Proceed with Simulation:} Start the environment simulation algorithm
+\end{algorithmic}
+\end{algorithm}
+\textbf{Initialization phase} of a Wolf-Sheep Predation System involves setting up initial parameters for the simulation environment, such as the initial ratio of cells containing grass, the time it takes for grass to regrow, and the energy gained by sheep from eating grass. Additionally, it specifies parameters for both wolf and sheep agents, including their initial counts, maximum energy, energy consumption rates, reproduction thresholds, and reproduction rates. After initializing these parameters, the simulation proceeds with the environment simulation algorithm where these agents interact based on the defined rules.
+
+\vspace{2mm}
+
+\textbf{Simulation phase} describes the simulation process for the System respectively. The simulation starts by initializing a grid environment where cells may contain grass and randomly placing wolf and sheep agents within this grid.
+
+During each simulation tick, the environment and agents are updated as follows:
+\begin{itemize}
+    \item \textbf{Update Environment}: Each cell in the grid is checked, and if it contains grass, the grass regrows after a specified number of simulation ticks (grassRegrowTime).
+
+    \item \textbf{Update Sheep Agents}: Each sheep agent moves to a random neighboring cell. If the cell contains grass, the sheep eats it, gaining energy (grassEnergyAdded). The sheep’s energy decreases by a set amount (sheepEnergyConsumption) each tick. If a sheep's energy falls to zero or below, it is removed from the simulation. Sheep that have energy above a certain threshold (sheepReproduceEnergyThreshold) may reproduce with a specified probability (sheepReproduceRate).
+
+    \item \textbf{Update Wolf Agents}: Each wolf agent also moves to a random neighboring cell. If the cell contains a sheep, the wolf eats it, gaining energy equal to the sheep's energy. Similar to sheep, the wolf's energy decreases by a set amount (wolfEnergyConsumption) each tick. Wolves with energy levels at or below zero are removed from the simulation. Wolves that have energy above a certain threshold (wolfReproduceEnergyThreshold) may reproduce with a specified probability (wolfReproduceRate).
+\end{itemize}
+
+The simulation continues through these updates for each tick, and once complete, population data is collected and analyzed. This process models the dynamics of predator-prey interactions within an ecosystem. The algoritm can be viewed in the Appendix A.
+
+\section{Complexity Introduction}
+
+Further, researcher explores how the introduction of additional complexity in the model affects simulation results. The \textbf{experiment modifies the model by adding a new property to each cell in the grid, representing terrain height}, and modifying how neighbors are defined based on this property.
+
+\subsection{Environment Changes}
+The modified model introduces terrain height as an additional environmental factor. Each cell in the grid is assigned a height value, with lower heights represented by darker colors. This terrain height affects the movement of agents by creating barriers; cells connected to other cells with a height difference greater than one unit are considered non-neighbors, reducing the number of possible movements.
+
+\subsection{Experiment Setup}
+To simulate real-world environmental complexity, the heightmap of a Minecraft world is used as a substitute for actual terrain. This heightmap provides sufficient complexity and naturalness while allowing for easy visualization. The environment is generated with specific parameters, and the simulation is run to observe how the added geographical barriers affect the interaction dynamics between wolves and sheep.
+
+\subsubsection{Methodology}
+The simulation is conducted with the same parameters as the basic model, with the added complexity of terrain. Two different terrain heightmaps are used to study the effects of these barriers on population dynamics. Population charts are generated from the simulation runs, and the results are interpreted.
+
+\subsubsection{Experiment entry 1: Flat Terrain with Geological Barriers (A)}
+Terrain A is a relatively flat area with a steep geographical barrier towards the sea. The addition of geographical movement barriers prevents the extinction of sheep agents, \textbf{leading to a more stable ecosystem}. The sheep agents find safe habitats in areas protected by cliffs, where they can grow undisturbed by wolves. Periodically, some sheep wander out of these habitats and grow their population until they encounter wolves, leading to a cyclical pattern of population growth and decline.
+
+\subsubsection{Experiment Entry 2: Terrain with Steeper Contours but no Distinct Barriers (B)}
+Terrain B has steeper contours but lacks extreme geographical barriers like Terrain A. The simulation on Terrain B demonstrates frequent near-extinctions of sheep agents, but they manage to rebound each time, \textbf{leading to cyclical population dynamics}. The sheep agents' ability to escape wolves by navigating slight geographical features prevents total extinction, leading to a more dynamic but less stable ecosystem.
+
+\subsection{Key Observations}
+The results of these experiments suggest that \textbf{adding environmental complexity significantly impacts the outcomes of agent-based simulations}. Terrain A's geographical barriers create safe zones for sheep agents, allowing them to grow undisturbed, whereas Terrain B's lack of significant barriers leads to more dynamic but cyclical population changes. These findings provide insights into how real-world geographical features might influence population stability and predator-prey dynamics in ecosystems.
+
+\section{Future Prospects}
+
+In the "Future Work" section, the researcher emphasizes the importance of exploring more complex models to better understand the effects of increased simulation complexity on ABMS. The \textbf{experiments suggest that adding complexity to simulations can provide deeper insights into the systems being modeled}, making the models more representative of real-world scenarios. The researcher plans to further investigate the introduction of more complex agent behaviors and adaptive agents, aiming to create simulations that closely mimic real-world dynamics.
+
+Additionally, it is acknowledged that increased complexity in simulations will require more computational resources. To address this, future research will explore strategies such as parallelization and optimization techniques to manage the computational demands, ensuring that the simulations remain efficient and scalable as complexity grows.
+
+% \subsection*{Listing base\_script.py} % Any code goes here
+% \begin{lstlisting}[language=python, title=Showcase of implementation.]
+
+% \end{lstlisting}
+
+\section*{References}
+\begin{enumerate}
+    \item \textbf{Mamanchuk N., University of Tsukuba}, Github, \today. Available online: \url{https://github.com/RIFLE}
+    \item \textbf{Alison R., University of Tsukuba}, on Simulating the Effects of Environmental Complexity in Agent-based Modeling, 2024. Available online: \url{https://www.cs.tsukuba.ac.jp/lecture/midterm/local/24_data/mov/202320694.mp4} [Accessed: 2024-08-12]
+    % \item \textbf{Company}, Name of Work, year. Available online: \url{https://...} [Accessed: yyyy-mm-dd]
+\end{enumerate}
+
+\newpage
+
+\section*{Appendix A. WS Simulation Stage Algorithm}
+\begin{algorithm}[!]
+    \caption{Wolf-Sheep Predation System Simulation}\label{alg:wolf-sheep}
+    \begin{algorithmic}[1]   
+    \State \textbf{Simulation Start:}
+    \State Initialize the grid environment with cells containing \textit{grass}
+    \State Place \textit{wolf} and \textit{sheep} agents randomly on the grid
+    \For{each \textit{simulation tick}}
+        \State \textbf{Update Environment:}
+        \For{each cell in the grid}
+            \If{cell contains \textit{grass}}
+                \State \textit{grass} regrows after \textit{grassRegrowTime} ticks
+            \EndIf
+        \EndFor
+        
+        \State \textbf{Update Agents:}
+        \For{each \textit{sheep} agent}
+            \State \textit{Move} to a random neighboring cell
+            \If{cell contains \textit{grass}}
+                \State \textit{Eat} grass and increase \textit{energy} by \textit{grassEnergyAdded}
+            \EndIf
+            \State Decrease \textit{energy} by \textit{sheepEnergyConsumption}
+            \If{\textit{energy} $\leq 0$}
+                \State \textit{Remove sheep} from simulation
+            \EndIf
+            \If{\textit{energy} $\geq$ \textit{sheepReproduceEnergyThreshold}}
+                \State \textit{Reproduce} with probability \textit{sheepReproduceRate}
+            \EndIf
+        \EndFor
+        
+        \For{each \textit{wolf} agent}
+            \State \textit{Move} to a random neighboring cell
+            \If{cell contains a \textit{sheep}}
+                \State \textit{Eat} sheep and increase \textit{energy} by sheep's energy
+            \EndIf
+            \State Decrease \textit{energy} by \textit{wolfEnergyConsumption}
+            \If{\textit{energy} $\leq 0$}
+                \State \textit{Remove wolf} from simulation
+            \EndIf
+            \If{\textit{energy} $\geq$ \textit{wolfReproduceEnergyThreshold}}
+                \State \textit{Reproduce} with probability \textit{wolfReproduceRate}
+            \EndIf
+        \EndFor
+    \EndFor
+    \State \textbf{End Simulation:} Collect and analyze population data
+    \end{algorithmic}
+\end{algorithm}
+
+% #################### ENDING HERE ####################
+
+\end{document}
