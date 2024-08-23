@@ -1,0 +1,5 @@
+Selection Policy,Best Score,F,CR
+0,520.957669356251,0.05,1.0
+1,520.7694704566156,0.05,1.0
+2,520.620999972551,0.05,1.0
+"Runtime with probs=8, reps=194, F=0.05, CR=1: 102.23 seconds, alg1=0.13s, alg2=0.51s, alg3=5.13s",,0.05,1.0

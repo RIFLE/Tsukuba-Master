@@ -2,3 +2,7 @@
 .DS_Store/*
 **/*.zip
 **/.DS_Store
+
+ExpDesign/report-2/results
+ExpDesign/report-2/venv
+ExpDesign/report-2/Archive.zip
