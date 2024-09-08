@@ -6,3 +6,12 @@
 ExpDesign/report-2/results
 ExpDesign/report-2/venv
 ExpDesign/report-2/Archive.zip
+
+!ExpDesign/report-1
+ExpDesign/report-1/*
+
+!ExpDesign/report-1/Report.1_Mamanchuk_Mykola.pdf
+!ExpDesign/report-1/images 
+!ExpDesign/report-1/Essential_code
+!ExpDesign/report-1/other_code_py 
+!ExpDesign/report-1/main.tex

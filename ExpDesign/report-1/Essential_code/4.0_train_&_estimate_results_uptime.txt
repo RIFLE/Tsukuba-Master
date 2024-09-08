@@ -1,0 +1,540 @@
+up 3 weeks, 4 days, 23 hours, 44 minutes
+
+[EVALUATION REPORTS SPECIFIED HERE]
+
+
+###################################################################################################
+
+HUGO_25-8075-work-report batch=5 + empty:
+
+load model with backbone efficientnetb3 ...
+Number of data in: train - 8075, validation - 950, test - 475
+2023-05-28 13:26:12.186639: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+Epoch 1/5
+1615/1615 [==============================] - ETA: 0s - loss: 1.0058 - iou_score: 0.1092 - accuracy: 0.9606 - mean_absolute_error: 0.0579 2023-05-28 21:31:48.400723: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+
+Epoch 1: saving model to HUGO-25_9500-500-0.85_unet_video_segment_01.hdf5
+1615/1615 [==============================] - 29756s 18s/step - loss: 1.0058 - iou_score: 0.1092 - accuracy: 0.9606 - mean_absolute_error: 0.0579 - val_loss: 0.9742 - val_iou_score: 0.1254 - val_accuracy: 0.9668 - val_mean_absolute_error: 0.0420
+Epoch 2/5
+1615/1615 [==============================] - ETA: 0s - loss: 0.9663 - iou_score: 0.1395 - accuracy: 0.9628 - mean_absolute_error: 0.0460 
+Epoch 2: saving model to HUGO-25_9500-500-0.85_unet_video_segment_02.hdf5
+1615/1615 [==============================] - 29786s 18s/step - loss: 0.9663 - iou_score: 0.1395 - accuracy: 0.9628 - mean_absolute_error: 0.0460 - val_loss: 0.9613 - val_iou_score: 0.1444 - val_accuracy: 0.9612 - val_mean_absolute_error: 0.0462
+Epoch 3/5
+1615/1615 [==============================] - ETA: 0s - loss: 0.9463 - iou_score: 0.1574 - accuracy: 0.9631 - mean_absolute_error: 0.0442 
+Epoch 3: saving model to HUGO-25_9500-500-0.85_unet_video_segment_03.hdf5
+1615/1615 [==============================] - 29679s 18s/step - loss: 0.9463 - iou_score: 0.1574 - accuracy: 0.9631 - mean_absolute_error: 0.0442 - val_loss: 0.9619 - val_iou_score: 0.1413 - val_accuracy: 0.9651 - val_mean_absolute_error: 0.0404
+Epoch 4/5
+1615/1615 [==============================] - ETA: 0s - loss: 0.9332 - iou_score: 0.1688 - accuracy: 0.9632 - mean_absolute_error: 0.0434 
+Epoch 4: saving model to HUGO-25_9500-500-0.85_unet_video_segment_04.hdf5
+1615/1615 [==============================] - 29716s 18s/step - loss: 0.9332 - iou_score: 0.1688 - accuracy: 0.9632 - mean_absolute_error: 0.0434 - val_loss: 0.9515 - val_iou_score: 0.1522 - val_accuracy: 0.9625 - val_mean_absolute_error: 0.0438
+Epoch 5/5
+1615/1615 [==============================] - ETA: 0s - loss: 0.9234 - iou_score: 0.1767 - accuracy: 0.9633 - mean_absolute_error: 0.0430 
+Epoch 5: saving model to HUGO-25_9500-500-0.85_unet_video_segment_05.hdf5
+1615/1615 [==============================] - 29755s 18s/step - loss: 0.9234 - iou_score: 0.1767 - accuracy: 0.9633 - mean_absolute_error: 0.0430 - val_loss: 0.9557 - val_iou_score: 0.1444 - val_accuracy: 0.9669 - val_mean_absolute_error: 0.0387
+Evaluate on test data
+2023-05-30 06:44:23.903456: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+95/95 [==============================] - 310s 3s/step - loss: 0.9574 - iou_score: 0.1459 - accuracy: 0.9665 - mean_absolute_error: 0.0389
+test loss, test acc: [0.9574131369590759, 0.1458861231803894, 0.9664783477783203, 0.038907475769519806]
+All is OK
+
+Process finished with exit code 0
+_
+###################################################################################################
+
+HUGO-25 9500-5-EPOCHS test-eval-500 batch=5
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 5s 5s/step
+Backend TkAgg is interactive backend. Turning interactive mode on.
+Prediction image shown.
+1/1 [==============================] - 1s 883ms/step
+Evaluate on test data
+2023-05-30 09:55:19.148091: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+100/100 [==============================] - 376s 4s/step - loss: 1.1685 - iou_score: 0.0103 - accuracy: 0.9701 - mean_absolute_error: 0.0315
+test loss, test acc: [1.168511986732483, 0.010304438881576061, 0.9700648784637451, 0.03148473799228668]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+
+
+###################################################################################################
+###################################################################################################
+###################################################################################################
+
+
+WOW-25 9500-500 1 batch no empty training-work-report:
+
+load model with backbone efficientnetb3 ...
+Number of data in: train - 8075, validation - 950, test - 475
+
+Epoch 1/5
+2023-05-30 18:12:02.908066: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 67108864 exceeds 10% of free system memory.
+2023-05-30 18:12:03.352816: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 67108864 exceeds 10% of free system memory.
+2023-05-30 18:12:03.557268: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+2023-05-30 18:12:03.751260: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+2023-05-30 18:12:03.966219: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+8075/8075 [==============================] - ETA: 0s - loss: 0.9866 - iou_score: 0.1804 - accuracy: 0.9316 - mean_absolute_error: 0.08692023-05-31 04:38:51.575913: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+
+Epoch 1: saving model to WOW-25_9500-500-0.85_1B_unet_video_segment_01.hdf5
+8075/8075 [==============================] - 38297s 5s/step - loss: 0.9866 - iou_score: 0.1804 - accuracy: 0.9316 - mean_absolute_error: 0.0869 - val_loss: 1.1483 - val_iou_score: 0.1196 - val_accuracy: 0.9020 - val_mean_absolute_error: 0.1049
+Epoch 2/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.8722 - iou_score: 0.2657 - accuracy: 0.9450 - mean_absolute_error: 0.0682
+Epoch 2: saving model to WOW-25_9500-500-0.85_1B_unet_video_segment_02.hdf5
+8075/8075 [==============================] - 39255s 5s/step - loss: 0.8722 - iou_score: 0.2657 - accuracy: 0.9450 - mean_absolute_error: 0.0682 - val_loss: 1.1378 - val_iou_score: 0.1548 - val_accuracy: 0.9361 - val_mean_absolute_error: 0.0699
+Epoch 3/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.6815 - iou_score: 0.4253 - accuracy: 0.9647 - mean_absolute_error: 0.0438
+Epoch 3: saving model to WOW-25_9500-500-0.85_1B_unet_video_segment_03.hdf5
+8075/8075 [==============================] - 40736s 5s/step - loss: 0.6815 - iou_score: 0.4253 - accuracy: 0.9647 - mean_absolute_error: 0.0438 - val_loss: 1.1126 - val_iou_score: 0.2252 - val_accuracy: 0.9314 - val_mean_absolute_error: 0.0732
+Epoch 4/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.5923 - iou_score: 0.5065 - accuracy: 0.9721 - mean_absolute_error: 0.0347
+Epoch 4: saving model to WOW-25_9500-500-0.85_1B_unet_video_segment_04.hdf5
+8075/8075 [==============================] - 39117s 5s/step - loss: 0.5923 - iou_score: 0.5065 - accuracy: 0.9721 - mean_absolute_error: 0.0347 - val_loss: 1.1579 - val_iou_score: 0.2171 - val_accuracy: 0.9455 - val_mean_absolute_error: 0.0582
+Epoch 5/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.5379 - iou_score: 0.5572 - accuracy: 0.9759 - mean_absolute_error: 0.0297
+Epoch 5: saving model to WOW-25_9500-500-0.85_1B_unet_video_segment_05.hdf5
+8075/8075 [==============================] - 38443s 5s/step - loss: 0.5379 - iou_score: 0.5572 - accuracy: 0.9759 - mean_absolute_error: 0.0297 - val_loss: 1.1904 - val_iou_score: 0.2085 - val_accuracy: 0.9421 - val_mean_absolute_error: 0.0610
+Evaluate on test data
+2023-06-02 00:35:36.224244: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+475/475 [==============================] - 332s 699ms/step - loss: 1.1745 - iou_score: 0.2141 - accuracy: 0.9436 - mean_absolute_error: 0.0597
+test loss, test acc: [1.17447829246521, 0.21405963599681854, 0.943629264831543, 0.05966714024543762]
+All is OK
+
+Process finished with exit code 0
+
+###################################################################################################
+
+
+WOW-25 9500-1-EPOCH test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 779ms/step
+Evaluate on test data
+2023-06-02 02:31:21.327666: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 393s 777ms/step - loss: 1.1383 - iou_score: 0.1271 - accuracy: 0.9158 - mean_absolute_error: 0.0896
+test loss, test acc: [1.1383485794067383, 0.12714026868343353, 0.9157841801643372, 0.08961232006549835]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+###################################################################################################
+
+
+WOW-25 9500-2-EPOCHS test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 787ms/step
+Evaluate on test data
+2023-06-02 02:58:44.482329: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 378s 749ms/step - loss: 1.1809 - iou_score: 0.1420 - accuracy: 0.9406 - mean_absolute_error: 0.0634
+test loss, test acc: [1.1808624267578125, 0.14196833968162537, 0.9406237602233887, 0.06338059902191162]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+###################################################################################################
+
+
+WOW-25 9500-3-EPOCHS test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+2023-06-02 02:40:12.034831: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+2023-06-02 02:40:12.254294: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+1/1 [==============================] - 4s 4s/step
+Prediction image shown.
+2023-06-02 02:40:13.901349: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+2023-06-02 02:40:14.101143: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+1/1 [==============================] - 1s 928ms/step
+Evaluate on test data
+2023-06-02 02:40:14.383176: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+2023-06-02 02:40:19.017418: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+500/500 [==============================] - 390s 771ms/step - loss: 1.1348 - iou_score: 0.2257 - accuracy: 0.9418 - mean_absolute_error: 0.0619
+test loss, test acc: [1.1347768306732178, 0.22573216259479523, 0.9417845010757446, 0.06185302138328552]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+##################################################################################################
+
+
+WOW-25 9500-4-EPOCHS test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 774ms/step
+Evaluate on test data
+2023-06-02 02:51:04.362209: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 380s 752ms/step - loss: 1.2262 - iou_score: 0.2010 - accuracy: 0.9488 - mean_absolute_error: 0.0537
+test loss, test acc: [1.22624933719635, 0.20101766288280487, 0.9488205313682556, 0.05371005833148956]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+##################################################################################################
+
+
+WOW-25 9500-5-EPOCHS test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 781ms/step
+Evaluate on test data
+2023-06-02 02:19:53.284703: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 376s 744ms/step - loss: 1.2540 - iou_score: 0.1885 - accuracy: 0.9457 - mean_absolute_error: 0.0567
+test loss, test acc: [1.253989577293396, 0.18854160606861115, 0.9456882476806641, 0.056704986840486526]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+
+###################################################################################################
+###################################################################################################
+###################################################################################################
+
+
+HUGO-10 9500-500 1 batch no empty training-work-report:
+
+load model with backbone efficientnetb3 ...
+Number of data in: train - 8075, validation - 950, test - 475
+
+Epoch 1: saving model to HUGO-10_9500-500-0.85_1B_unet_video_segment_01.hdf5
+8075/8075 [==============================] - 37818s 5s/step - loss: 0.9240 - iou_score: 0.1564 - accuracy: 0.9714 - mean_absolute_error: 0.0354 - val_loss: 1.0426 - val_iou_score: 0.0893 - val_accuracy: 0.9644 - val_mean_absolute_error: 0.0396
+Epoch 2/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.8384 - iou_score: 0.2301 - accuracy: 0.9766 - mean_absolute_error: 0.0276
+Epoch 2: saving model to HUGO-10_9500-500-0.85_1B_unet_video_segment_02.hdf5
+8075/8075 [==============================] - 38236s 5s/step - loss: 0.8384 - iou_score: 0.2301 - accuracy: 0.9766 - mean_absolute_error: 0.0276 - val_loss: 0.9733 - val_iou_score: 0.1551 - val_accuracy: 0.9765 - val_mean_absolute_error: 0.0260
+Epoch 3/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.6936 - iou_score: 0.3660 - accuracy: 0.9844 - mean_absolute_error: 0.0181
+Epoch 3: saving model to HUGO-10_9500-500-0.85_1B_unet_video_segment_03.hdf5
+8075/8075 [==============================] - 38342s 5s/step - loss: 0.6936 - iou_score: 0.3660 - accuracy: 0.9844 - mean_absolute_error: 0.0181 - val_loss: 0.9398 - val_iou_score: 0.1930 - val_accuracy: 0.9781 - val_mean_absolute_error: 0.0239
+Epoch 4/5
+1427/8075 [====>.........................] - ETA: 8:39:20 - loss: 0.6430 - iou_score: 0.4167 - accuracy: 0.9865 - mean_absolute_error: 0.0156
+
+[terminated]
+
+
+###################################################################################################
+
+
+HUGO-10 9500-1-EPOCH test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 755ms/step
+Evaluate on test data
+2023-06-03 16:06:38.730115: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 379s 749ms/step - loss: 1.0453 - iou_score: 0.0847 - accuracy: 0.9704 - mean_absolute_error: 0.0321
+test loss, test acc: [1.0452829599380493, 0.08468879759311676, 0.9704365730285645, 0.03210463374853134]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+###################################################################################################
+
+
+HUGO-10 9500-2-EPOCHS test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 777ms/step
+Evaluate on test data
+2023-06-03 16:13:39.650175: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 382s 756ms/step - loss: 0.9897 - iou_score: 0.1486 - accuracy: 0.9785 - mean_absolute_error: 0.0231
+test loss, test acc: [0.9897121787071228, 0.14860539138317108, 0.9784905910491943, 0.023144980892539024]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+###################################################################################################
+
+
+HUGO-10 9500-3-EPOCHS test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 783ms/step
+Evaluate on test data
+2023-06-03 16:22:03.744107: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 377s 745ms/step - loss: 0.9418 - iou_score: 0.1973 - accuracy: 0.9802 - mean_absolute_error: 0.0210
+test loss, test acc: [0.9418174624443054, 0.19733542203903198, 0.9802494645118713, 0.021045969799160957]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+###################################################################################################
+###################################################################################################
+###################################################################################################
+
+
+WOW-10 Training report
+
+load model with backbone efficientnetb3 ...
+Number of data in: train - 8075, validation - 950, test - 475
+2023-06-03 17:28:50.915336: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+Epoch 1/5
+2023-06-03 17:29:26.237363: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 67108864 exceeds 10% of free system memory.
+2023-06-03 17:29:26.664042: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 67108864 exceeds 10% of free system memory.
+2023-06-03 17:29:26.867246: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+2023-06-03 17:29:27.053587: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+2023-06-03 17:29:27.265228: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 134217728 exceeds 10% of free system memory.
+8075/8075 [==============================] - ETA: 0s - loss: 0.9374 - iou_score: 0.1441 - accuracy: 0.9704 - mean_absolute_error: 0.03672023-06-04 04:07:16.926673: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+
+Epoch 1: saving model to WOW-10_9500-500-0.85_1B_unet_video_segment_01.hdf5
+8075/8075 [==============================] - 38990s 5s/step - loss: 0.9374 - iou_score: 0.1441 - accuracy: 0.9704 - mean_absolute_error: 0.0367 - val_loss: 1.0494 - val_iou_score: 0.0815 - val_accuracy: 0.9565 - val_mean_absolute_error: 0.0475
+Epoch 2/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.8770 - iou_score: 0.1940 - accuracy: 0.9751 - mean_absolute_error: 0.0292
+Epoch 2: saving model to WOW-10_9500-500-0.85_1B_unet_video_segment_02.hdf5
+8075/8075 [==============================] - 38550s 5s/step - loss: 0.8770 - iou_score: 0.1940 - accuracy: 0.9751 - mean_absolute_error: 0.0292 - val_loss: 1.0192 - val_iou_score: 0.1270 - val_accuracy: 0.9687 - val_mean_absolute_error: 0.0344
+Epoch 3/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.7031 - iou_score: 0.3576 - accuracy: 0.9846 - mean_absolute_error: 0.0180
+Epoch 3: saving model to WOW-10_9500-500-0.85_1B_unet_video_segment_03.hdf5
+8075/8075 [==============================] - 38741s 5s/step - loss: 0.7031 - iou_score: 0.3576 - accuracy: 0.9846 - mean_absolute_error: 0.0180 - val_loss: 1.0001 - val_iou_score: 0.1725 - val_accuracy: 0.9727 - val_mean_absolute_error: 0.0291
+Epoch 4/5
+8075/8075 [==============================] - ETA: 0s - loss: 0.6073 - iou_score: 0.4539 - accuracy: 0.9881 - mean_absolute_error: 0.0136
+Epoch 4: saving model to WOW-10_9500-500-0.85_1B_unet_video_segment_04.hdf5
+8075/8075 [==============================] - 38550s 5s/step - loss: 0.6073 - iou_score: 0.4539 - accuracy: 0.9881 - mean_absolute_error: 0.0136 - val_loss: 0.9819 - val_iou_score: 0.1905 - val_accuracy: 0.9756 - val_mean_absolute_error: 0.0257
+Epoch 5/5
+  11/8075 [..............................] - ETA: 10:51:58 - loss: 0.5742 - iou_score: 0.4859 - accuracy: 0.9881 - mean_absolute_error: 0.0132
+
+
+###################################################################################################
+
+WOW-10 9500-1-EPOCH test-eval-500
+
+Num GPUs Available:  0
+No GPU found
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 830ms/step
+Evaluate on test data
+2023-06-05 12:45:04.558128: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+
+
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 388s 768ms/step - loss: 1.0427 - iou_score: 0.0829 - accuracy: 0.9642 - mean_absolute_error: 0.0382
+test loss, test acc: [1.0426839590072632, 0.082906074821949, 0.9641786217689514, 0.038249701261520386]
+
+
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+###################################################################################################
+
+WOW-10 9500-2-EPOCH test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 807ms/step
+Evaluate on test data
+2023-06-05 12:52:24.737297: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 384s 759ms/step - loss: 1.0289 - iou_score: 0.1244 - accuracy: 0.9724 - mean_absolute_error: 0.0296
+test loss, test acc: [1.0288653373718262, 0.12440607696771622, 0.9724199175834656, 0.029628939926624298]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+
+###################################################################################################
+
+WOW-10 9500-3-EPOCH test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 4s 4s/step
+Prediction image shown.
+1/1 [==============================] - 1s 806ms/step
+Evaluate on test data
+2023-06-05 12:59:36.518366: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 388s 768ms/step - loss: 1.0112 - iou_score: 0.1695 - accuracy: 0.9766 - mean_absolute_error: 0.0246
+test loss, test acc: [1.0112377405166626, 0.16950969398021698, 0.976568341255188, 0.024646077305078506]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+###################################################################################################
+
+WOW-10 9500-4-EPOCH test-eval-500
+
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 817ms/step
+Evaluate on test data
+2023-06-05 13:06:55.879649: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 387s 766ms/step - loss: 0.9950 - iou_score: 0.1886 - accuracy: 0.9785 - mean_absolute_error: 0.0224
+test loss, test acc: [0.9949541687965393, 0.18855080008506775, 0.9784791469573975, 0.02241278626024723]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+###################################################################################################
+###################################################################################################
+###################################################################################################
+
+HUGO-25 Training report
+
+load model with backbone efficientnetb3 ...
+Number of data in: train - 8075, validation - 950, test - 475
+2023-06-05 15:20:21.237095: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+Epoch 1/10
+2023-06-05 15:20:58.433150: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 1207959552 exceeds 10% of free system memory.
+2023-06-05 15:20:58.433227: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 1207959552 exceeds 10% of free system memory.
+2023-06-05 15:20:59.865916: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 1207959552 exceeds 10% of free system memory.
+2023-06-05 15:20:59.866074: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 1207959552 exceeds 10% of free system memory.
+2023-06-05 15:21:00.850542: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 301989888 exceeds 10% of free system memory.
+8075/8075 [==============================] - ETA: 0s - loss: 0.9741 - iou_score: 0.1902 - accuracy: 0.9324 - mean_absolute_error: 0.08492023-06-06 01:54:11.559997: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+
+Epoch 1: saving model to HUGO-25_9500-500-0.85_1B_unet_video_segment_01.hdf5
+8075/8075 [==============================] - 38695s 5s/step - loss: 0.9741 - iou_score: 0.1902 - accuracy: 0.9324 - mean_absolute_error: 0.0849 - val_loss: 1.0911 - val_iou_score: 0.1487 - val_accuracy: 0.9259 - val_mean_absolute_error: 0.0838
+Epoch 2/10
+8075/8075 [==============================] - ETA: 0s - loss: 0.7933 - iou_score: 0.3298 - accuracy: 0.9527 - mean_absolute_error: 0.0584
+Epoch 2: saving model to HUGO-25_9500-500-0.85_1B_unet_video_segment_02.hdf5
+8075/8075 [==============================] - 38591s 5s/step - loss: 0.7933 - iou_score: 0.3298 - accuracy: 0.9527 - mean_absolute_error: 0.0584 - val_loss: 1.0149 - val_iou_score: 0.2313 - val_accuracy: 0.9520 - val_mean_absolute_error: 0.0531
+Epoch 3/10
+8075/8075 [==============================] - ETA: 0s - loss: 0.6587 - iou_score: 0.4459 - accuracy: 0.9662 - mean_absolute_error: 0.0418
+Epoch 3: saving model to HUGO-25_9500-500-0.85_1B_unet_video_segment_03.hdf5
+8075/8075 [==============================] - 40777s 5s/step - loss: 0.6587 - iou_score: 0.4459 - accuracy: 0.9662 - mean_absolute_error: 0.0418 - val_loss: 0.9938 - val_iou_score: 0.2756 - val_accuracy: 0.9510 - val_mean_absolute_error: 0.0532
+Epoch 4/10
+ 175/8075 [..............................] - ETA: 11:17:12 - loss: 0.6170 - iou_score: 0.4851 - accuracy: 0.9694 - mean_absolute_error: 0.0376
+ 
+ ###################################################################################################
+ 
+HUGO-25 9500-1-EPOCH test-eval-500
+ 
+ load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 815ms/step
+Evaluate on test data
+2023-06-07 00:26:44.175043: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 388s 767ms/step - loss: 1.1014 - iou_score: 0.1420 - accuracy: 0.9335 - mean_absolute_error: 0.0737
+test loss, test acc: [1.1014153957366943, 0.14200884103775024, 0.9334965348243713, 0.07374383509159088]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+
+###################################################################################################
+
+HUGO-25 9500-2-EPOCH test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 808ms/step
+Evaluate on test data
+2023-06-07 00:34:00.254241: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 380s 751ms/step - loss: 1.0628 - iou_score: 0.2136 - accuracy: 0.9525 - mean_absolute_error: 0.0511
+test loss, test acc: [1.062811255455017, 0.21361686289310455, 0.9525305032730103, 0.05107774958014488]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+###################################################################################################
+
+HUGO-25 9500-3-EPOCH test-eval-500
+
+load model with backbone efficientnetb3 ...
+Number of data in evaluation - 500
+1/1 [==============================] - 3s 3s/step
+Prediction image shown.
+1/1 [==============================] - 1s 810ms/step
+Evaluate on test data
+2023-06-07 00:41:01.807759: I tensorflow/core/common_runtime/executor.cc:1197] [/device:CPU:0] (DEBUG INFO) Executor start aborting (this does not indicate an error and you can ignore this message): INVALID_ARGUMENT: You must feed a value for placeholder tensor 'Placeholder/_0' with dtype int32
+	 [[{{node Placeholder/_0}}]]
+500/500 [==============================] - 381s 755ms/step - loss: 1.0308 - iou_score: 0.2645 - accuracy: 0.9540 - mean_absolute_error: 0.0493
+test loss, test acc: [1.0307615995407104, 0.26451143622398376, 0.9539706707000732, 0.049314919859170914]
+END of EVAL
+EXIT
+All is OK
+
+Process finished with exit code 0
+
+

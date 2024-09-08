@@ -1,0 +1,8 @@
+albumentations
+keras>=2.0
+numpy>=1.15
+scipy>=1.5
+scikit-image>=0.15
+matplotlib>=3.0
+segmentation-models
+tensorflow
