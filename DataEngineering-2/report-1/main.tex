@@ -1,0 +1,182 @@
+\documentclass[a4paper,10.5pt]{article}
+
+\usepackage[fleqn]{amsmath} % This package with the fleqn option aligns equations to the left
+\setlength{\mathindent}{0pt} % Set indentation from the left margin
+
+\usepackage{amssymb} % Required for math symbols
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+
+\usepackage[backend=biber, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{a4paper, margin=1in}
+
+{
+\title{
+    \includegraphics[width=0.34\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{Data Engineering II} \\
+    \vspace{3mm}    
+    Report on the Individual Assignment
+}
+
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Large Language Models (LLMs) like ChatGPT have revolutionized natural language processing by providing powerful tools for text generation, knowledge retrieval, and sentiment analysis. These models are based on sophisticated neural network architectures and have been trained on vast amounts of data to perform a wide range of language-related tasks. In this report are explored the functions of LLMs and their analogies to specific areas of the human brain, as well as their limitations and the future directions for achieving Artificial General Intelligence (AGI).
+
+\section{Functions of LLMs like ChatGPT}
+
+\subsection{Natural Language Understanding and Generation}
+LLMs process and generate text by predicting the next token in a sequence based on the context provided by previous tokens. They learn statistical relationships and patterns in human language through extensive training on large datasets.
+
+\textbf{Example}: When given a prompt like "The capital of France is", the LLM generates the continuation "Paris" based on the context provided by the input.
+
+\textbf{Brain Analog}: This function can be compared to the Broca's area, involved in language production, and Wernicke's area, crucial for language comprehension. These brain regions are responsible for processing and producing coherent speech, similar to how LLMs generate text.
+
+\subsection{Knowledge Retrieval}
+LLMs retrieve and summarize information from the extensive data they were trained on. This is achieved through self-supervised learning, where the model predicts masked parts of the input text, learning to understand and generate contextually relevant text.
+
+\textbf{Example}: When asked "What are the symptoms of COVID-19?", the model generates a list of symptoms such as "fever, cough, and difficulty breathing" by recalling information it has seen during training.
+
+\textbf{Brain Analog}: This function is analogous to the hippocampus and prefrontal cortex, which are involved in memory retrieval and decision-making based on stored information. These brain regions help recall past experiences and use that information to make informed decisions.
+
+\subsection{Sentiment Analysis}
+LLMs interpret the emotional tone behind text inputs by analyzing context and word choices to determine whether the sentiment is positive, negative, or neutral.
+
+\textbf{Example}: Given the sentence "I am so happy with the service!", the model identifies the sentiment as positive.
+
+\textbf{Brain Analog}: This function is related to the amygdala and other parts of the limbic system, which are involved in processing emotions. The limbic system helps recognize and interpret emotional stimuli, similar to how LLMs analyze the sentiment of text inputs.
+
+\section{Current Limitations Associated with Human Brain}
+
+Despite their advanced capabilities, at present, LLMs have several limitations that hinder their progress towards achieving AGI. These limitations can be associated with specific brain functions that LLMs currently do not emulate effectively. Concrete examples of such functions are listed below with corresponding explanations.
+
+\subsection{Common Sense Reasoning}
+LLMs often struggle with tasks that require an intuitive understanding of everyday objects and situations. They can generate text that seems plausible but lacks a true understanding of the context, leading to errors in reasoning.
+
+\textbf{Brain Analog}: The prefrontal cortex is involved in higher-level cognitive functions such as reasoning, problem-solving, and planning, which are areas where LLMs currently lack.
+
+\subsection{Continual Learning}
+Unlike the human brain, LLMs cannot continuously learn from new data without regular retraining sessions or other knowledge-preservating techniques. This limitation hinders their ability to adapt to new information in real-time, which is essential for AGI.
+
+\textbf{Brain Analog}: The human brain's ability to learn continuously and adapt is primarily facilitated by the hippocampus and neocortex.
+
+\subsection{Abstract Thinking}
+LLMs yet lack the capability for high-level abstraction and meta-cognition found in the human brain. They can process specific instructions but struggle with tasks that require understanding abstract concepts or performing meta-cognitive reasoning.
+
+\textbf{Brain Analog}: Abstract thinking and meta-cognition are functions of the prefrontal cortex, which allows humans to engage in complex problem-solving and planning.
+
+\section{Other Limitations}
+
+\subsection{Integration Capability}
+LLMs, like GPT-4, often lack seamless integration capabilities with transactional systems. They face difficulties in executing tasks that require interaction with external systems, such as processing payments or updating databases. Though, steps in these directions are ongoing, while integrations with the help of specific interfaces make it possible for LLMs to assist with or perform parts of similar tasks.
+
+\subsection{Contextual Understanding}
+LLMs often struggle to maintain contextual understanding over extended conversations. They can generate coherent responses within a given context but tend to lose track of the conversation's broader context or fail to remember specific details mentioned earlier.
+
+\subsection{Multimodal Capabilities}
+LLMs primarily rely on text-based interactions and lack robust support for other modalities such as images, videos, or audio. This limits their effectiveness in scenarios where multimodal communication is crucial.
+
+\subsection{Accuracy}
+While LLMs demonstrate impressive language generation capabilities, they do not guarantee factual accuracy or real-time information. This limitation is critical in situations where precision and reliability are paramount, such as legal or medical inquiries.
+
+\subsection{Data Privacy and Security}
+LLMs' reliance on extensive data access raises concerns regarding data privacy and security. Organizations handling sensitive information may hesitate to utilize cloud-based AI models due to potential risks associated with data breaches or unauthorized access.
+
+\section{Transitioning to AGI}
+
+The journey from current AI capabilities to achieving AGI involves overcoming significant challenges. Here are the key areas that need to be addressed, along with the corresponding human brain functions that AGI would need to emulate:
+
+\subsection{Visual Perception}
+\textbf{Current AI Capabilities}: AI has made substantial progress in computer vision, particularly in facial recognition and object detection. However, it struggles with contextual understanding, color differentiation, and handling partially obscured objects. \\
+\textbf{AGI Requirements}: AGI must achieve a level of visual perception comparable to humans, which involves interpreting complex scenes, understanding depth and color, and reacting to dynamic visual stimuli. \\
+\textbf{Brain Analog}: This corresponds to the occipital lobe, responsible for visual processing.
+
+\subsection{Audio Perception}
+\textbf{Current AI Capabilities}: AI can recognize speech but often fails with accents, sarcasm, and emotional tones. It also has difficulty filtering out background noise and interpreting non-verbal cues. \\
+\textbf{AGI Requirements}: AGI needs to understand nuanced speech patterns, emotional contexts, and non-verbal auditory signals. \\
+\textbf{Brain Analog}: This is akin to the temporal lobe, which processes auditory information and is involved in understanding language.
+
+\subsection{Fine Motor Skills}
+\textbf{Current AI Capabilities}: Robotics has advanced, but AI-controlled robots still lack the dexterity and adaptability seen in humans. \\
+\textbf{AGI Requirements}: AGI paired with robotics must handle delicate objects, use tools, and adapt to new physical tasks quickly. \\
+\textbf{Brain Analog}: This requires emulation of the motor cortex and cerebellum, which coordinate fine motor skills and physical coordination.
+
+\subsection{Problem-Solving}
+\textbf{Current AI Capabilities}: AI excels at specific, well-defined problems but struggles with general problem-solving and reasoning. \\
+\textbf{AGI Requirements}: AGI must reason and solve problems like humans, handling uncertainty and making decisions with incomplete information. \\
+\textbf{Brain Analog}: This involves the prefrontal cortex, critical for complex cognitive behavior, decision-making, and moderating social behavior.
+
+\subsection{Navigation}
+\textbf{Current AI Capabilities}: AI can navigate using pre-programmed maps and sensors but lacks human-like adaptability. \\
+\textbf{AGI Requirements}: AGI should navigate complex environments intuitively, similar to how humans adapt to crowded streets or uneven terrains. \\
+\textbf{Brain Analog}: This is related to the hippocampus, which is crucial for navigation and spatial memory.
+
+\subsection{Creativity}
+\textbf{Current AI Capabilities}: AI can generate text and creative content but lacks true originality. \\
+\textbf{AGI Requirements}: AGI must demonstrate human-like creativity, generating novel ideas and concepts. \\
+\textbf{Brain Analog}: This involves the frontal lobes, particularly the prefrontal cortex, associated with creative thinking and problem-solving.
+
+\subsection{Social and Emotional Engagement}
+\textbf{Current AI Capabilities}: AI can mimic basic social interactions but lacks deep understanding and empathy. \\
+\textbf{AGI Requirements}: AGI needs to recognize and respond appropriately to emotions, interpreting facial expressions, body language, and tone of voice. \\
+\textbf{Brain Analog}: This is linked to the amygdala and other parts of the limbic system, which process emotions and social interactions.
+
+\subsection{Steps to Achieve AGI}
+\begin{itemize}
+    \item \textbf{Integration of Multimodal Capabilities}: Combining visual, auditory, and sensory data to create a cohesive understanding of the environment, similar to how the human brain integrates different types of sensory information.
+    \item \textbf{Advanced Contextual Understanding}: Developing AI that can maintain context over long conversations and complex scenarios, akin to human conversational abilities and memory retention.
+    \item \textbf{Enhanced Learning Mechanisms}: Implementing continual learning processes that allow AI to learn and adapt in real-time, similar to human learning and memory consolidation.
+    \item \textbf{Improved Interaction with Physical World}: Enhancing the fine motor skills of AI through advanced robotics, allowing AGI to interact with and manipulate the physical world with precision.
+    \item \textbf{Development of True Creativity}: Fostering AI's ability to create original ideas and concepts by emulating the cognitive processes involved in human creativity.
+    \item \textbf{Emotional Intelligence}: Equipping AGI with the ability to understand and respond to human emotions, making interactions more natural and effective.
+\end{itemize}
+
+\section{Conclusion}
+LLMs like ChatGPT have made significant strides in natural language processing, providing valuable tools for various applications. However, to achieve AGI, these models need to overcome several limitations related to common sense reasoning, continual learning, abstract thinking, integration capability, contextual understanding, multimodal capabilities, accuracy, and data privacy and security. Understanding the brain analogs of these functions can provide insights into improving LLMs and moving closer to AGI.
+
+\section*{References}
+\begin{enumerate}
+    \item \textbf{Mamanchuk N., University of Tsukuba}, Github access. \today. Available online: \url{https://github.com/RIFLE}
+    \item \textbf{Wikipedia - Free Encyclopedia}, Online article. Last Accessed: 2024-06-28. Available online: \url{https://en.wikipedia.org/wiki/Large_language_model}
+    \item \textbf{Maryna B., Master of Code}, Responsible Generative AI: Limitations, Risks, and Future Directions of LLMs Adoption - Online article. Last Update: 2024-06-26. \url{https://masterofcode.com/blog/generative-ai-limitations-risks-and-future-directions-of-llms}
+    \item \textbf{Mucci T., Stryker C., IBM}, Getting Ready for Artificial General Intelligence with Examples - Online article. Last Update: 2024-04-18.
+     \\ \url{https://www.ibm.com/blog/artificial-general-intelligence-examples/}
+\end{enumerate}
+
+\end{document}
