@@ -5,3 +5,6 @@ Branches are expected to be merged later.
 
 ### Currently available branches:
 - [spring-2024](https://github.com/RIFLE/Tsukuba-Master/tree/spring-2024) (completed)
+- [fall-2024](https://github.com/RIFLE/Tsukuba-Master/tree/fall-2024) 
+(in progress)
+
