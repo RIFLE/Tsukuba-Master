@@ -1,0 +1,165 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{bookmark}
+\usepackage[fleqn]{amsmath} % 左揃えの数式
+\setlength{\mathindent}{0pt} % 数式のインデントを0に設定
+\usepackage{amssymb} % 数学記号
+\usepackage{graphicx} % 画像挿入
+\usepackage{geometry}
+\usepackage{stmaryrd}
+\usepackage{xeCJK}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+\begin{CJK}{UTF8}{ipxm}
+
+\title{
+    \includegraphics[width=0.34\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{プログラム理論特論} \\
+    \vspace{3mm}    
+    レポート課題 3
+}
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+\maketitle
+
+\section*{問題}
+
+$x$, $y$ が非負整数のとき、以下のプログラム \texttt{GCD} に対して、
+
+\begin{lstlisting}[language=Python]
+GCD ::
+    while x != y do
+        if x > y then
+            x := x - y
+        else
+            y := y - x
+        fi
+    od
+\end{lstlisting}
+
+次を示せ：
+
+\[
+\vdash_{\text{TW}} \{ x = x_0 \land y = y_0 \land x_0 > 0 \land y_0 > 0 \} \ \texttt{GCD} \ \{ x = y \land y = \gcd(x_0, y_0) \}
+\]
+
+ただし、$\gcd(x, y)$ は正整数 $x$ と $y$ との最大公約数を表す関数である。
+
+\section*{解答}
+
+\subsection*{証明の概要}
+
+プログラム \texttt{GCD} はユークリッドの互除法を用いて、2つの正の整数 $x_0$, $y_0$ の最大公約数 $\gcd(x_0, y_0)$ を計算するアルゴリズムである。これが完全正当性（正しい結果を計算し、必ず停止すること）を満たすことを証明する。
+
+\subsection*{ループ不変表明と限界式の設定}
+
+\textbf{ループ不変表明 $p$}：
+\[
+p :\quad \gcd(x, y) = \gcd(x_0, y_0) \quad \land \quad x > 0 \quad \land \quad y > 0
+\]
+
+\textbf{限界式 $t$}：
+\[
+t = \max(x, y)
+\]
+
+\subsection*{証明}
+
+\subsubsection*{初期化の証明}
+
+初期状態で $x = x_0$, $y = y_0$, $x_0 > 0$, $y_0 > 0$ より、$x > 0$, $y > 0$ であり、$\gcd(x, y) = \gcd(x_0, y_0)$ が成り立つ。よって、$p$ が成立する。
+
+\subsubsection*{ループの維持の証明}
+
+ループ本体 $S$ に対して、$p$ が維持されることを示す。
+
+\begin{itemize}
+    \item \textbf{ケース 1：$x > y$ の場合}
+
+    操作：$x := x - y$
+
+    $x' = x - y$, $y' = y$
+
+    \item 最大公約数の保持：
+    \[
+    \gcd(x', y') = \gcd(x - y, y) = \gcd(x, y) = \gcd(x_0, y_0)
+    \]
+    \item 正の整数であること：
+    $x' = x - y > 0$, $y' = y > 0$
+
+    \item \textbf{ケース 2：$x < y$ の場合}
+
+    操作：$y := y - x$
+
+    $x' = x$, $y' = y - x$
+
+    \item 最大公約数の保持：
+    \[
+    \gcd(x', y') = \gcd(x, y - x) = \gcd(x, y) = \gcd(x_0, y_0)
+    \]
+    \item 正の整数であること：
+    $x' = x > 0$, $y' = y - x > 0$
+\end{itemize}
+
+いずれの場合も $p$ が維持される。
+
+\subsubsection*{停止性の証明}
+
+各反復で限界式 $t = \max(x, y)$ は減少する。
+
+\begin{itemize}
+    \item $x > y$ の場合：$x$ が減少し、$t' = \max(x - y, y) < t$
+    \item $x < y$ の場合：$y$ が減少し、$t' = \max(x, y - x) < t$
+\end{itemize}
+
+$p$ より $t \geq 1$ であり、$t$ は負にならない。よって、ループは有限回で停止する。
+
+\subsubsection*{終了時の性質の証明}
+
+ループ終了時には $x = y$ である。$p$ より $\gcd(x, y) = \gcd(x_0, y_0)$ かつ $x > 0$。したがって、
+\[
+x = y = \gcd(x_0, y_0)
+\]
+
+\subsection*{結論}
+
+以上より、
+\[
+\vdash_{\text{TW}} \{ x = x_0 \land y = y_0 \land x_0 > 0 \land y_0 > 0 \} \ \texttt{GCD} \ \{ x = y = \gcd(x_0, y_0) \}
+\]
+が証明された。
+
+\end{CJK}
+\end{document}

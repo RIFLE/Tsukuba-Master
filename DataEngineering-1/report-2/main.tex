@@ -1,0 +1,460 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\geometry{margin=1in}
+
+\usepackage{amssymb} % Required for math symbols
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+
+\usepackage[backend=biber, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{a4paper, margin=1in}
+
+{
+\title{
+    \includegraphics[width=0.4\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{Data Engineering I} \\
+    \vspace{3mm}    
+    Quiz 6
+}
+
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section*{Task 1: DBSCAN Clustering}
+
+\subsection*{Problem Statement}
+
+Given the following distance matrix measured by the Euclidean distance:
+
+\begin{table}[H]
+\centering
+\caption{Distance Matrix}
+\begin{tabular}{c|ccccccc}
+       & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ \\
+\hline
+$x_1$ & 0.00  & 7.59  & 8.11  & 3.01  & 1.00  & 9.02  & 1.00  \\
+$x_2$ & 7.59  & 0.00  & 1.10  & 6.33  & 7.50  & 1.20  & 8.22  \\
+$x_3$ & 8.11  & 1.10  & 0.00  & 6.33  & 8.34  & 1.51  & 7.08  \\
+$x_4$ & 3.01  & 6.33  & 6.33  & 0.00  & 3.00  & 9.63  & 3.00  \\
+$x_5$ & 1.00  & 7.50  & 8.34  & 3.00  & 0.00  & 8.42  & 1.00  \\
+$x_6$ & 9.02  & 1.20  & 1.51  & 9.63  & 8.42  & 0.00  & 8.33  \\
+$x_7$ & 1.00  & 8.22  & 7.08  & 3.00  & 1.00  & 8.33  & 0.00  \\
+\end{tabular}
+\end{table}
+
+We apply the DBSCAN algorithm with parameters $\varepsilon = 1.2$ and $\text{MinPts} = 3$.
+
+\subsection*{Questions and Answers}
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Find all core points.}
+
+    \textit{Solution:} For each point, we count the number of points (including itself) within $\varepsilon = 1.2$ distance.
+
+    \begin{itemize}
+        \item \textbf{Point $x_1$:} Neighbors within $\varepsilon$: $x_1$, $x_5$, $x_7$ (distance $\leq 1.0$). Count = 3. Therefore, $x_1$ is a core point.
+        \item \textbf{Point $x_2$:} Neighbors within $\varepsilon$: $x_2$, $x_3$ (1.10), $x_6$ (1.20). Count = 3. Therefore, $x_2$ is a core point.
+        \item \textbf{Point $x_5$:} Neighbors within $\varepsilon$: $x_5$, $x_1$, $x_7$ (1.00). Count = 3. Therefore, $x_5$ is a core point.
+        \item \textbf{Point $x_7$:} Neighbors within $\varepsilon$: $x_7$, $x_1$, $x_5$ (1.00). Count = 3. Therefore, $x_7$ is a core point.
+        \item \textbf{Points $x_3$, $x_4$, $x_6$:} Each has fewer than 3 neighbors within $\varepsilon$. Therefore, they are not core points.
+    \end{itemize}
+
+    \textbf{Answer:} The core points are $x_1$, $x_2$, $x_5$, and $x_7$.
+
+    \item \textbf{Find all clusters and noise points.}
+
+    \textit{Solution:} We start clustering from the core points.
+
+    \begin{itemize}
+        \item \textbf{Cluster 1:} Starting from core point $x_1$, its neighbors within $\varepsilon$ are $x_1$, $x_5$, $x_7$. These points form Cluster 1.
+        \item \textbf{Cluster 2:} Starting from core point $x_2$, its neighbors within $\varepsilon$ are $x_2$, $x_3$, $x_6$. Points $x_3$ and $x_6$ are reachable from $x_2$ and are added to Cluster 2. Note that $x_3$ and $x_6$ are border points.
+        \item \textbf{Noise Point:} Point $x_4$ does not belong to any cluster and is not a core point. Therefore, $x_4$ is a noise point.
+    \end{itemize}
+
+\end{enumerate}
+
+\subsection*{Answer}
+
+The DBSCAN algorithm identified two clusters and one noise point based on the given distance matrix and parameters.
+
+\vspace{1em}
+
+\textbf{Core Points:} $x_1$, $x_2$, $x_5$, $x_7$
+
+\textbf{Clusters:}
+\begin{itemize}
+    \item Cluster 1: $x_1$, $x_5$, $x_7$
+    \item Cluster 2: $x_2$, $x_3$, $x_6$
+\end{itemize}
+
+\textbf{Noise Point:} $x_4$
+
+\section*{Task 2: Prototype-Based Cohesion, Separation, and NMI}
+
+\subsection*{Problem Statement}
+
+Given the following 2-dimensional data points:
+
+\begin{table}[H]
+\centering
+\caption{Data Points}
+\begin{tabular}{c|cc}
+\toprule
+\textbf{Point} & \textbf{x} & \textbf{y} \\
+\midrule
+$x_1$ & 35 & 90 \\
+$x_2$ & 78 & 100 \\
+$x_3$ & 80 & 80 \\
+$x_4$ & 79 & 78 \\
+$x_5$ & 91 & 80 \\
+$x_6$ & 20 & 80 \\
+$x_7$ & 52 & 60 \\
+$x_8$ & 105 & 50 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We have the following clusters:
+
+\begin{itemize}
+    \item \textbf{Cluster 1:} $\{ x_1, x_6, x_7 \}$
+    \item \textbf{Cluster 2:} $\{ x_2, x_3, x_4, x_5, x_8 \}$
+\end{itemize}
+
+And the following class labels:
+
+\begin{itemize}
+    \item \textbf{Label 1:} $\{ x_1, x_2, x_6 \}$
+    \item \textbf{Label 2:} $\{ x_3, x_4, x_5, x_7, x_8 \}$
+\end{itemize}
+
+\subsection*{Questions and Answers}
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Compute the prototype-based cohesion of the clustering result.}
+
+    \textit{Solution:} Cohesion is calculated as the sum of squared Euclidean distances between each point and its cluster centroid.
+
+    \begin{itemize}
+        \item \textbf{Cluster 1 Centroid:} 
+        \[
+        \begin{split}
+            \text{Centroid}_1 &= \left( \frac{35 + 20 + 52}{3}, \frac{90 + 80 + 60}{3} \right) \\
+            &= (35.67, 76.67)
+        \end{split}
+        \]
+        \item \textbf{Cluster 1 Cohesion:}
+        \[
+        \text{Cohesion}_1 = \sum_{i \in \text{Cluster 1}} \| x_i - \text{Centroid}_1 \|^2 = 980.33
+        \]
+        \item \textbf{Cluster 2 Centroid:} 
+        \[
+        \begin{split}
+            \text{Centroid}_2 &= \left( \frac{78 + 80 + 79 + 91 + 105}{5}, \frac{100 + 80 + 78 + 80 + 50}{5} \right) \\
+            &= (86.6, 77.6)
+        \end{split}
+        \]
+        \item \textbf{Cluster 2 Cohesion:}
+        \[
+        \text{Cohesion}_2 = \sum_{i \in \text{Cluster 2}} \| x_i - \text{Centroid}_2 \|^2 = 1807.40
+        \]
+        \item \textbf{Total Cohesion:}
+        \[
+        \text{Total Cohesion} = \text{Cohesion}_1 + \text{Cohesion}_2 = 980.33 + 1807.40 = 2787.73
+        \]
+    \end{itemize}
+
+    \item \textbf{Compute the prototype-based separation of the clusters.}
+
+    \textit{Solution:} Separation is calculated as the squared Euclidean distance between the centroids of the clusters.
+
+    \[
+    \begin{split}
+        \text{Separation} &= \| \text{Centroid}_1 - \text{Centroid}_2 \|^2 \\
+        &= (86.6 - 35.67)^2 + (77.6 - 76.67)^2 \\
+        &= 2595.08
+    \end{split}
+    \]
+
+    \textbf{Answer:} The prototype-based separation is \textbf{2595.08}.
+
+    \item \textbf{Compute the Normalized Mutual Information (NMI) of the clusters.}
+
+    \textit{Solution:} NMI measures the similarity between the clustering and the true labels.
+
+    \begin{itemize}
+        \item \textbf{Construct the Contingency Table:}
+
+        \begin{table}[H]
+        \centering
+        \caption{Contingency Table}
+        \begin{tabular}{c|cc|c}
+        \toprule
+        & \textbf{Cluster 1} & \textbf{Cluster 2} & \textbf{Total} \\
+        \midrule
+        \textbf{Label 1} & 2 & 1 & 3 \\
+        \textbf{Label 2} & 1 & 4 & 5 \\
+        \midrule
+        \textbf{Total} & 3 & 5 & 8 \\
+        \bottomrule
+        \end{tabular}
+        \end{table}
+
+        \item \textbf{Compute Mutual Information (MI):}
+        \[
+        \begin{split}
+            \text{MI} &= \sum_{i=1}^{2} \sum_{j=1}^{2} \frac{n_{ij}}{N} \log_2 \left( \frac{N \cdot n_{ij}}{n_{i\cdot} n_{\cdot j}} \right) \\
+            &= \frac{2}{8} \log_2 \left( \frac{8 \cdot 2}{3 \cdot 3} \right) + \frac{1}{8} \log_2 \left( \frac{8 \cdot 1}{3 \cdot 5} \right) \\
+            &+ \frac{1}{8} \log_2 \left( \frac{8 \cdot 1}{5 \cdot 3} \right) + \frac{4}{8} \log_2 \left( \frac{8 \cdot 4}{5 \cdot 5} \right) \\
+            &= 0.159
+        \end{split}
+        \]
+        \item \textbf{Compute Entropies $H(L)$ and $H(C)$:}
+        \[
+        \begin{split}
+            H(L) &= -\left( \frac{3}{8} \log_2 \frac{3}{8} + \frac{5}{8} \log_2 \frac{5}{8} \right) = 0.954 \\
+            H(C) &= -\left( \frac{3}{8} \log_2 \frac{3}{8} + \frac{5}{8} \log_2 \frac{5}{8} \right) = 0.954
+        \end{split}
+        \]
+        \item \textbf{Compute NMI:}
+        \[
+        \text{NMI} = \frac{2 \times \text{MI}}{H(L) + H(C)}
+        \]
+    \end{itemize}
+
+    \textbf{Answer:} The Normalized Mutual Information (NMI) is \textbf{0.166}.
+
+\end{enumerate}
+
+\subsection*{Listing assignment.py}
+\begin{lstlisting}[language=python]
+    import numpy as np
+
+    ####################
+    ### ASSIGNMENT 1 ###
+    ####################
+    
+    # Distance matrix
+    distance_matrix = np.array([
+        [0.00, 7.59, 8.11, 3.01, 1.00, 9.02, 1.00],
+        [7.59, 0.00, 1.10, 6.33, 7.50, 1.20, 8.22],
+        [8.11, 1.10, 0.00, 6.33, 8.34, 1.51, 7.08],
+        [3.01, 6.33, 6.33, 0.00, 3.00, 9.63, 3.00],
+        [1.00, 7.50, 8.34, 3.00, 0.00, 8.42, 1.00],
+        [9.02, 1.20, 1.51, 9.63, 8.42, 0.00, 8.33],
+        [1.00, 8.22, 7.08, 3.00, 1.00, 8.33, 0.00],
+    ])
+    
+    Eps = 1.2
+    MinPts = 3
+    n_points = distance_matrix.shape[0]
+    
+    # Initialize labels (-1 means unvisited)
+    labels = np.full(n_points, -1)
+    
+    # List to keep track of core points
+    core_points = []
+    
+    # Step 1: Find core points
+    for i in range(n_points):
+        neighbors = np.where(distance_matrix[i] <= Eps)[0]
+        if len(neighbors) >= MinPts:
+            core_points.append(i)
+    
+    # Step 2: Cluster assignment
+    cluster_id = 0
+    for core_point in core_points:
+        if labels[core_point] == -1:
+            # Start a new cluster
+            labels[core_point] = cluster_id
+            # Initialize the list of points to visit
+            points_to_visit = [core_point]
+            while points_to_visit:
+                current_point = points_to_visit.pop()
+                neighbors = np.where(distance_matrix[current_point] <= Eps)[0]
+                for neighbor in neighbors:
+                    if labels[neighbor] == -1:
+                        labels[neighbor] = cluster_id
+                        if neighbor in core_points:
+                            points_to_visit.append(neighbor)
+            cluster_id += 1
+    
+    # Map indices to point names
+    point_names = ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7']
+    clusters = {}
+    noise = []
+    for idx, label in enumerate(labels):
+        if label != -1:
+            cluster = clusters.get(label, [])
+            cluster.append(point_names[idx])
+            clusters[label] = cluster
+        else:
+            noise.append(point_names[idx])
+    
+    # Print results
+    print("Core Points:", [point_names[i] for i in core_points])
+    print("\nClusters:")
+    for cluster_id, members in clusters.items():
+        print(f"Cluster {cluster_id + 1}: {', '.join(members)}")
+    print("\nNoise Points:", ', '.join(noise))
+    
+    
+    ####################
+    ### ASSIGNMENT 2 ###
+    ####################
+    
+    print("\n")
+    
+    # Data points
+    data = {
+        'x1': np.array([35, 90]),
+        'x2': np.array([78, 100]),
+        'x3': np.array([80, 80]),
+        'x4': np.array([79, 78]),
+        'x5': np.array([91, 80]),
+        'x6': np.array([20, 80]),
+        'x7': np.array([52, 60]),
+        'x8': np.array([105, 50])
+    }
+    
+    # Clusters
+    cluster1 = ['x1', 'x6', 'x7']
+    cluster2 = ['x2', 'x3', 'x4', 'x5', 'x8']
+    
+    ### Prototype-Based Cohesion
+    
+    # Function to compute centroid
+    def compute_centroid(cluster_points):
+        return np.mean(cluster_points, axis=0)
+    
+    # Function to compute cohesion
+    def compute_cohesion(cluster_points, centroid):
+        distances = np.linalg.norm(cluster_points - centroid, axis=1)
+        squared_distances = distances ** 2
+        return np.sum(squared_distances)
+    
+    # Cluster 1
+    cluster1_points = np.array([data[pt] for pt in cluster1])
+    centroid1 = compute_centroid(cluster1_points)
+    cohesion1 = compute_cohesion(cluster1_points, centroid1)
+    
+    # Cluster 2
+    cluster2_points = np.array([data[pt] for pt in cluster2])
+    centroid2 = compute_centroid(cluster2_points)
+    cohesion2 = compute_cohesion(cluster2_points, centroid2)
+    
+    # Total Cohesion
+    total_cohesion = cohesion1 + cohesion2
+    
+    # Round to second decimal place
+    total_cohesion = round(total_cohesion, 2)
+    
+    print(f"Prototype-Based Cohesion: {total_cohesion}")
+    
+    ### Prototype-Based Separation
+    
+    # Compute squared Euclidean distance between centroids
+    centroid_distance = np.linalg.norm(centroid1 - centroid2)
+    separation = centroid_distance ** 2
+    
+    # Round to second decimal place
+    separation = round(separation, 2)
+    
+    print(f"Prototype-Based Separation: {separation}")
+    
+    ### Normalized Mutual Information (NMI)
+    
+    # Data for contingency table, n_ij counts
+    n11 = 2  # Label 1, Cluster 1
+    n12 = 1  # Label 1, Cluster 2
+    n21 = 1  # Label 2, Cluster 1
+    n22 = 4  # Label 2, Cluster 2
+    
+    n1_dot = n11 + n12  # Total for Label 1
+    n2_dot = n21 + n22  # Total for Label 2
+    n_dot1 = n11 + n21  # Total for Cluster 1
+    n_dot2 = n12 + n22  # Total for Cluster 2
+    N = n1_dot + n2_dot  # Total number of points
+    
+    # Calculate MI
+    import math
+    
+    def log2(x):
+        return math.log(x) / math.log(2)
+    
+    def mutual_information():
+        MI = 0
+        # Terms where n_ij > 0
+        n_ij_list = [(n11, n1_dot, n_dot1), (n12, n1_dot, n_dot2),
+                     (n21, n2_dot, n_dot1), (n22, n2_dot, n_dot2)]
+        for n_ij, n_i_dot, n_dot_j in n_ij_list:
+            if n_ij > 0:
+                MI += (n_ij / N) * log2((N * n_ij) / (n_i_dot * n_dot_j))
+        return MI
+    
+    MI = mutual_information()
+    
+    # Calculate entropies
+    def entropy(n_i_dot):
+        p = n_i_dot / N
+        return -p * log2(p)
+    
+    H_L = entropy(n1_dot) + entropy(n2_dot)
+    H_C = entropy(n_dot1) + entropy(n_dot2)
+    
+    # Calculate NMI
+    NMI = (2 * MI) / (H_L + H_C)
+    
+    # Round to third decimal place
+    NMI = round(NMI, 3)
+    
+    print(f"NMI: {NMI}")
+    
+\end{lstlisting}
+
+\end{document}

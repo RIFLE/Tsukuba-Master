@@ -3,6 +3,11 @@
 **/*.zip
 **/.DS_Store
 
+**/out/*
+!**/out/*.pdf
+
+**/venv/
+
 ExpDesign/report-2/results
 ExpDesign/report-2/venv
 ExpDesign/report-2/Archive.zip

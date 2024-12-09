@@ -1,0 +1,211 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{bookmark}
+\usepackage[fleqn]{amsmath} % 左揃えの数式
+\setlength{\mathindent}{0pt} % 数式のインデントを0に設定
+\usepackage{amssymb} % 数学記号
+\usepackage{graphicx} % 画像挿入
+\usepackage{geometry}
+\usepackage{stmaryrd}
+\usepackage{xeCJK}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+\begin{CJK}{UTF8}{ipxm}
+
+\title{
+    \includegraphics[width=0.34\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{プログラム理論特論} \\
+    \vspace{3mm}    
+    レポート課題 4
+}
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+\maketitle
+
+\section*{問題 1}
+
+完全性の証明における \(\vdash_{\text{PW}} \{ \text{wlp}(S, q) \} S \{ q \}\) を証明する部分で、\( S \) が連結文 \( S_1; S_2 \) の場合について、証明を完成させよ。
+
+\section*{解答}
+
+\subsection*{目標}
+
+\( S = S_1; S_2 \) のとき、以下を証明する。
+
+\[
+\vdash_{\text{PW}} \{ \text{wlp}(S, q) \} S \{ q \}
+\]
+
+つまり、
+
+\[
+\vdash_{\text{PW}} \{ \text{wlp}(S_1; S_2, q) \} S_1; S_2 \{ q \}
+\]
+
+を示す。
+
+\subsection*{証明}
+
+\begin{enumerate}
+    \item \textbf{wlp の性質を利用}：
+
+    \[
+    \text{wlp}(S_1; S_2, q) = \text{wlp}(S_1, \text{wlp}(S_2, q))
+    \]
+
+    \item \textbf{帰納法の仮定より}：
+
+    \begin{itemize}
+        \item \(\vdash_{\text{PW}} \{ \text{wlp}(S_1, \text{wlp}(S_2, q)) \} S_1 \{ \text{wlp}(S_2, q) \}\)
+        \item \(\vdash_{\text{PW}} \{ \text{wlp}(S_2, q) \} S_2 \{ q \}\)
+    \end{itemize}
+
+    \item \textbf{合成規則の適用}：
+
+    合成規則より、
+
+    \[
+    \vdash_{\text{PW}} \{ \text{wlp}(S_1, \text{wlp}(S_2, q)) \} S_1; S_2 \{ q \}
+    \]
+
+    \item \textbf{結論}：
+
+    よって、
+
+    \[
+    \vdash_{\text{PW}} \{ \text{wlp}(S_1; S_2, q) \} S_1; S_2 \{ q \}
+    \]
+
+    が成立する。
+
+\end{enumerate}
+
+\section*{問題 2}
+
+GCD プログラムに対して、
+
+\begin{lstlisting}[language=Python]
+GCD ::
+    while x != y do
+        if x > y then
+            x := x - y
+        else
+            y := y - x
+        fi
+    od
+\end{lstlisting}
+
+次を、証明アウトラインを用いて示せ：
+
+\[
+\vdash_{\text{TW}} \{ x = x_0 \land y = y_0 \land x_0 > 0 \land y_0 > 0 \} \ \text{GCD} \ \{ x = y \land y = \gcd(x_0, y_0) \}
+\]
+
+\section*{解答}
+
+\subsection*{証明アウトライン}
+
+\begin{enumerate}
+    \item \textbf{初期条件}：
+
+    \[
+    \{ x = x_0 \land y = y_0 \land x_0 > 0 \land y_0 > 0 \}
+    \]
+
+    \item \textbf{ループ不変表明（inv）}：
+
+    \[
+    \text{inv} :\quad x > 0 \land y > 0 \land \gcd(x, y) = \gcd(x_0, y_0)
+    \]
+
+    \item \textbf{バウンド関数（bd）}：
+
+    \[
+    t = x + y
+    \]
+
+    \item \textbf{ループ本体}：
+
+    \begin{lstlisting}[language=Python, mathescape=true]
+        { inv: $x > 0 \land y > 0 \land \gcd(x, y) = \gcd(x_0, y_0)$ } { bd: $t = x + y$ }
+        while $x \ne y$ do
+            { $x > 0 \land y > 0 \land x \ne y \land \gcd(x, y) = \gcd(x_0, y_0)$ }
+            if $x > y$ then
+                { $x > y > 0 \land \gcd(x, y) = \gcd(x_0, y_0)$ }
+                $x := x - y$
+                { $x > 0 \land y > 0 \land \gcd(x, y) = \gcd(x_0, y_0)$ }
+            else
+                { $y > x > 0 \land \gcd(x, y) = \gcd(x_0, y_0)$ }
+                $y := y - x$
+                { $x > 0 \land y > 0 \land \gcd(x, y) = \gcd(x_0, y_0)$ }
+            fi
+            { t decreases }
+        od
+        { $x = y \land \gcd(x, y) = \gcd(x_0, y_0)$ }
+    \end{lstlisting}
+        
+
+    \item \textbf{各部分の正当性}：
+
+    \begin{itemize}
+        \item \textbf{不変表明の維持}：
+
+        各ケースで \(\gcd(x, y)\) は変わらず、\( x > 0 \), \( y > 0 \) が維持される。
+
+        \item \textbf{バウンド関数の減少}：
+
+        \( t = x + y \) は各反復で減少する。
+
+        \item \textbf{停止性の確認}：
+
+        \( t \geq 2 \) より、ループは有限回で停止する。
+
+        \item \textbf{終了時の条件}：
+
+        ループ終了時に \( x = y = \gcd(x_0, y_0) \) が成立する。
+    \end{itemize}
+
+\end{enumerate}
+
+\section*{結論}
+
+以上より、証明アウトラインを用いて GCD プログラムの完全正当性を示した。
+
+\[
+\vdash_{\text{TW}} \{ x = x_0 \land y = y_0 \land x_0 > 0 \land y_0 > 0 \} \ \text{GCD} \ \{ x = y = \gcd(x_0, y_0) \}
+\]
+
+\end{CJK}
+\end{document}

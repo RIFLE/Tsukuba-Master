@@ -1,0 +1,365 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{bookmark}
+\usepackage[fleqn]{amsmath} % 左揃えの数式
+\setlength{\mathindent}{0pt} % 数式のインデントを0に設定
+\usepackage{amssymb} % 数学記号
+\usepackage{graphicx} % 画像挿入
+\usepackage{geometry}
+\usepackage{stmaryrd}
+\usepackage{xeCJK}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+\begin{CJK}{UTF8}{ipxm}
+
+\title{
+    \includegraphics[width=0.34\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{プログラム理論特論} \\
+    \vspace{3mm}    
+    レポート課題 5
+}
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+\maketitle
+
+\section*{問題 1}
+
+$x$ は整数型の単純変数、$a$ は整数から整数への配列変数とする。このとき、以下の代入を計算せよ。
+
+\begin{enumerate}
+    \item $a[2][a[2] := 3]$
+    \item $a[3][a[3] := 3]$
+    \item $a[a[2]][a[2] := 3]$
+    \item $a[a[3]][a[3] := 3]$
+\end{enumerate}
+
+\subsection*{解答}
+
+\begin{enumerate}
+    \item \textbf{$a[2][a[2] := 3]$ の計算}
+    
+    \begin{itemize}
+        \item まず、代入 $a[2] := 3$ を行う。
+        \item その結果、$a[2] = 3$ となる。
+        \item 次に、$a[2]$ の値を評価する。
+        \item よって、$a[2][a[2] := 3] = 3$
+    \end{itemize}
+    
+    \item \textbf{$a[3][a[3] := 3]$ の計算}
+    
+    \begin{itemize}
+        \item まず、代入 $a[3] := 3$ を行う。
+        \item その結果、$a[3] = 3$ となる。
+        \item 次に、$a[3]$ の値を評価する。
+        \item よって、$a[3][a[3] := 3] = 3$
+    \end{itemize}
+    
+    \item \textbf{$a[a[2]][a[2] := 3]$ の計算}
+    
+    \begin{itemize}
+        \item まず、代入 $a[2] := 3$ を行う。
+        \item その結果、$a[2] = 3$ となる。
+        \item 次に、$a[2]$ の値を評価すると、$a[2] = 3$
+        \item したがって、$a[a[2]] = a[3]$ となる。
+        \item しかし、$a[3]$ の値は未定義であるため、$a[a[2]][a[2] := 3]$ の値は未定義となる。
+    \end{itemize}
+    
+    \item \textbf{$a[a[3]][a[3] := 3]$ の計算}
+    
+    \begin{itemize}
+        \item まず、代入 $a[3] := 3$ を行う。
+        \item その結果、$a[3] = 3$ となる。
+        \item 次に、$a[3]$ の値を評価すると、$a[3] = 3$
+        \item したがって、$a[a[3]] = a[3]$ となる。
+        \item よって、$a[a[3]][a[3] := 3] = a[3] = 3$
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{まとめ}
+
+\begin{enumerate}
+    \item $a[2][a[2] := 3] = 3$
+    \item $a[3][a[3] := 3] = 3$
+    \item $a[a[2]][a[2] := 3]$ の値は未定義
+    \item $a[a[3]][a[3] := 3] = 3$
+\end{enumerate}
+
+\section*{問題 2}
+
+全ての変数が整数型であると仮定する。
+
+プログラム $S_1$ は以下の通り
+
+\begin{lstlisting}[language=Python]
+S1 :
+    i := 0;
+    a[i] := 1;
+    while i < n do
+        begin
+            i := i + 1;
+            a[i] := a[i - 1] * i;
+        end
+    od
+\end{lstlisting}
+
+適切な表明 $p$, $q$ を考え、$\vdash_{\text{TW}} \{ p \} S_1 \{ q \}$ を証明せよ。
+
+\subsection*{解答}
+
+\subsubsection*{前条件と後条件の設定}
+
+\begin{itemize}
+    \item \textbf{前条件}:
+    \[
+    p \equiv n \geq 0
+    \]
+    \item \textbf{後条件}:
+    \[
+    q \equiv i = n \land \forall j \in [0, n],\ a[j] = j!
+    \]
+\end{itemize}
+
+\subsubsection*{ループ不変表明とバウンド関数の設定}
+
+\begin{itemize}
+    \item \textbf{ループ不変表明(Invariant)}:
+    \[
+    p' \equiv 0 \leq i \leq n \land \forall j \in [0, i],\ a[j] = j!
+    \]
+    \item \textbf{バウンド関数(Bound Function)}:
+    \[
+    t = n - i
+    \]
+\end{itemize}
+
+\subsubsection*{ループ規則の適用}
+
+\begin{enumerate}
+    \item \textbf{初期条件での不変表明の成立}:
+
+    初期化後、$i = 0$, $a[0] = 1$ より、不変表明 $p'$ が成立する。
+
+    \item \textbf{ループ本体における不変表明の維持}:
+
+    事前条件:$p' \land i < n$
+
+    ループ本体:
+
+    \begin{itemize}
+        \item $i := i + 1$
+        \item $a[i] := a[i - 1] * i$
+    \end{itemize}
+
+    事後条件:
+
+    \[
+    a[i] = a[i - 1] \times i = (i - 1)! \times i = i!
+    \]
+
+    よって、不変表明 $p'$ は維持される。
+
+    \item \textbf{バウンド関数の減少}:
+
+    各反復で $i$ が $1$ 増加するため、$t = n - i$ は減少する。
+
+    \item \textbf{バウンド関数の下限の確認}:
+
+    $i \leq n$ より、$t = n - i \geq 0$
+
+    \item \textbf{ループ終了後の状態}:
+
+    $i = n$ となり、$a[0]$ から $a[n]$ までが正しく計算されている。
+
+\end{enumerate}
+
+\subsubsection*{証明アウトライン}
+
+\begin{lstlisting}[language=Python, mathescape=true]
+{ $n \geq 0$ }
+$i := 0$
+$a[i] := 1$
+{ inv: $0 \leq i \leq n \land \forall j \in [0, i],\ a[j] = j!$ } { bd: $t = n - i$ }
+while $i < n$ do
+    { $0 \leq i < n \land \forall j \in [0, i],\ a[j] = j!$ }
+    begin
+        $i := i + 1$
+        $a[i] := a[i - 1] * i$
+        { $0 \leq i \leq n \land \forall j \in [0, i],\ a[j] = j!$ }
+    end
+od
+{ $i = n \land \forall j \in [0, n],\ a[j] = j!$ }
+\end{lstlisting}
+
+\subsubsection*{結論}
+
+以上より、$\vdash_{\text{TW}} \{ p \} S_1 \{ q \}$ を証明した。
+
+\section*{問題 3}
+
+全ての変数が整数型であると仮定する。
+
+プログラム $S_2$ は以下の通り:
+
+\begin{lstlisting}[language=Python]
+S2 :
+    do
+        2 divides x -> x := x div 2; twop := twop + 1
+    [square]
+        3 divides x-> x := x div 3; threep := threep + 1
+    od
+\end{lstlisting}
+
+$p$ を
+\[
+p \equiv \text{twop} = 0 \land \text{threep} = 0 \land x = x_0 \land x_0 > 0
+\]
+とする。
+
+このとき、適切な後条件 $q$ を与えて、$\vdash_{\text{TN}} \{ p \} S_2 \{ q \}$ を証明する。
+
+\subsection*{解答}
+
+\subsubsection*{後条件の設定}
+
+適切な後条件は以下の通りとする:
+\[
+q \equiv x > 0 \land x_0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land \gcd(x, 6) = 1
+\]
+つまり、$x$ は $2$ と $3$ で割り切れない正の整数であり、$x_0$ は収集した因数と現在の $x$ の積で表される。
+
+\subsubsection*{ループ不変表明とバウンド関数の設定}
+
+\begin{itemize}
+    \item \textbf{ループ不変表明(Invariant)}:
+    \[
+    p' \equiv x_0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \quad \land \quad x > 0
+    \]
+    \item \textbf{バウンド関数(Bound Function)}:
+    \[
+    t = x
+    \]
+\end{itemize}
+
+\subsubsection*{ループ規則の適用}
+
+\begin{enumerate}
+    \item \textbf{初期条件での不変表明の成立}:
+
+    初期条件 $p$ より、$p'$ は初期状態で成立する。
+
+    \item \textbf{各ガード付きコマンドに対する不変表明の維持}:
+
+    \begin{itemize}
+        \item \textbf{ガード $B_1$(
+$2$ divides $x$)の場合}:
+
+        事前条件:$p' \land 2 \text{ divides } x$
+
+        操作:
+        \[
+        x := x \div 2; \quad \text{twop} := \text{twop} + 1
+        \]
+
+        事後条件:
+        \[
+        x_0 = 2^{\text{twop}_{\text{new}}} \times 3^{\text{threep}} \times x
+        \]
+
+        よって、不変表明 $p'$ は維持される。
+
+        \item \textbf{ガード $B_2$(
+$3$ divides $x$)の場合}:
+
+        事前条件:$p' \land 3 \text{ divides } x$
+
+        操作:
+        \[
+        x := x \div 3; \quad \text{threep} := \text{threep} + 1
+        \]
+
+        事後条件:
+        \[
+        x_0 = 2^{\text{twop}} \times 3^{\text{threep}_{\text{new}}} \times x
+        \]
+
+        よって、不変表明 $p'$ は維持される。
+    \end{itemize}
+
+    \item \textbf{バウンド関数の減少}:
+
+    各反復で $x$ は少なくとも $2$ または $3$ で割られるため、$t = x$ は減少する。
+
+    \item \textbf{バウンド関数の下限の確認}:
+
+    $x > 0$ より、$t = x \geq 1$
+
+    \item \textbf{ループ終了後の状態}:
+
+    ループ終了条件より、$2$ でも $3$ でも割り切れない $x$ が得られる。したがって、$\gcd(x, 6) = 1$ が成立し、後条件 $q$ が得られる。
+\end{enumerate}
+
+\subsubsection*{証明アウトライン}
+
+\begin{lstlisting}[language=Python, mathescape=true]
+{ $\text{twop} = 0 \land \text{threep} = 0 \land x = X0 \land X0 > 0$ }
+{ inv: $X0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land x > 0$ } { bd: $t = x$ }
+do
+    $2$ divides $x$ ->
+        { $X0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land x > 0 \land 2 \text{ divides } x$ }
+        $x := x \div 2$
+        $\text{twop} := \text{twop} + 1$
+        { $X0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land x > 0$ }
+        { $t < z$ }
+    [square]
+    $3$ divides $x$ ->
+        { $X0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land x > 0 \land 3 \text{ divides } x$ }
+        $x := x \div 3$
+        $\text{threep} := \text{threep} + 1$
+        { $X0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land x > 0$ }
+        { $t < z$ }
+od
+{ $x > 0 \land X0 = 2^{\text{twop}} \times 3^{\text{threep}} \times x \land \gcd(x, 6) = 1$ }
+\end{lstlisting}
+
+\subsubsection*{結論}
+
+以上より、適切な後条件 $q$ を設定し、完全正当性の証明体系 $\text{TN}$ を用いて、
+\[
+\vdash_{\text{TN}} \{ p \} S_2 \{ q \}
+\]
+を証明した。
+
+\end{CJK}
+\end{document}
