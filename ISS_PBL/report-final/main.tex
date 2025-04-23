@@ -1,0 +1,127 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[fleqn]{amsmath} % This package with the fleqn option aligns equations to the left
+\setlength{\mathindent}{0pt} % Set indentation from the left margin
+
+\usepackage{amssymb} % Required for math symbols
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+\usepackage{enumitem}
+
+
+\usepackage[backend=biber, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{a4paper, margin=1in}
+
+{
+\title{
+    \includegraphics[width=0.4\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    Graduate School of Science and Technology, Systems and Information Engineering, Computer Science, Laboratory of Cryptography and Information Security \\
+    \vspace{3mm}  
+    \textbf{Inclusive Smart Society - PBL} \\
+    \vspace{3mm}    
+    Final Report on Project Presentation and Individual Feedback for the Course
+}
+
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section{Contribution to Preparing the Final Presentation \& Judges' Feedback}
+
+\subsection{My Contribution}
+As a core team member, I led the market analysis and feasibility assessment for our assistive technology solutions—the SpiderSense navigation device and the Tournesol braille printer. My contributions included:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item \textbf{Market Research:} Conducted an in-depth analysis of the global assistive technology market, valued at approximately \$13.2B in 2021 with a projected CAGR of 13.8\%. This study highlighted the need for more user-centric designs.
+    \item \textbf{Competitor Benchmarking:} Evaluated existing products, such as the AASHIRASE audio device (subscription model at about \$6.67/month) versus our one-time purchase approach. This comparison revealed that many wearable navigation devices, priced around \$1,000, underperform in real-world conditions.
+    \item \textbf{Feasibility and Cost Analysis:} Analyzed production costs which indicated steep markups for both SpiderSense and Tournesol. I proposed using advanced 3D printing (e.g., with a Bambu Lab A1 printer at \$500) to lower prototyping expenses.
+    \item \textbf{Target Audience Segmentation:} Focused on Japan's demographics—28\% of the population is over 65 and only about 10\% of visually impaired individuals use braille. Collaborations with Tsukuba University's medical and robotics departments ensured our project aligned with the nation's "Inclusive Smart Society" initiatives.
+    \item \textbf{Funding Strategies:} Explored federal grants (e.g., IDEA, Assistive Technology Acts) and potential partnerships with local governments and schools, advocating for a direct-to-consumer (B2C) model that bypasses traditional B2B channels.
+\end{itemize}
+
+\subsection{Inferred Judges' Feedback}
+Although I do not recall the exact comments from the judges, their feedback can be inferred based on our analysis:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item \textbf{Advantages:}
+    \begin{itemize}[leftmargin=*, label=--]
+        \item \textbf{Affordability:} Our solutions are priced significantly lower than those of competitors (for example, offering braille printers at roughly one-tenth the cost of alternatives like IRE Braille Buddy).
+        \item \textbf{User-Centric Design:} Features such as the open API for Tournesol promote adaptability and independence by eliminating recurring subscription fees.
+        \item \textbf{Cross-Border Collaboration:} Leveraging Tsukuba University's robotics/AI expertise and Ohio State University's focus on education and visual impairment positions our project to effectively serve both Japanese and U.S. markets.
+    \end{itemize}
+    \item \textbf{Potential Pitfalls:}
+    \begin{itemize}[leftmargin=*, label=--]
+        \item \textbf{Production Scalability:} The high production markups could challenge mass production unless further cost optimizations or subsidies are secured.
+        \item \textbf{Market Penetration:} Displacing established competitors, such as HumanWare, may be difficult, particularly given historically low adoption rates of braille technology in Japan.
+        \item \textbf{Technical Reliability:} There could be concerns regarding the real-world performance of novel features like vibration-based navigation (SpiderSense) when compared to traditional aids, such as white canes priced around \$60 per unit.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Competitive Edge in Japan}
+Our project is well aligned with Japan's strategic vision for an Inclusive Smart Society. Key advantages include:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item \textbf{Demographic Targeting:} Addressing the needs of Japan's aging population and its 9.3 million visually impaired individuals ensures a substantial and growing market.
+    \item \textbf{Government Initiatives:} Alignment with policies such as the "Barrier-Free Law" and potential partnerships with organizations like the Japanese Society for Rehabilitation of Persons with Disabilities (JSRPD) provides strong institutional support.
+    \item \textbf{Cultural Sensitivity:} By prioritizing discreet and non-stigmatizing designs (e.g., the compact form of SpiderSense), our solutions are tailored to meet both cultural and practical expectations.
+\end{itemize}
+
+\section{Reflections on the Course \& Future Plans}
+
+\subsection{Key Learnings}
+The course reinforced the importance of integrating technology with social good:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item \textbf{Inclusive Design Philosophy:} Emphasized that technology must empower users through autonomy and accessibility. For instance, the open API for Tournesol allows for high customization without the burden of recurring fees.
+    \item \textbf{Interdisciplinary Collaboration:} Working alongside experts in robotics, education, and healthcare underscored the need for holistic solutions that address both technical and societal challenges.
+    \item \textbf{Societal Impact:} Peer feedback and extensive project discussions highlighted how targeted assistive technologies can significantly improve the quality of life for people with physical limitations.
+\end{itemize}
+
+\subsection{Future Plans}
+Building on these insights, my plans include:
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item \textbf{Startup Launch:} Refine our prototypes using cost-effective 3D printing methods and conduct pilot tests in Tsukuba City by 2025. We also plan to pursue grants from organizations such as the Japan Science and Technology Agency (JST).
+    \item \textbf{Policy Advocacy:} Forge partnerships with Japan's Ministry of Health, Labour and Welfare (MHLW) to integrate our solutions into public health initiatives.
+    \item \textbf{Global Expansion:} Utilize Ohio State University's network to enter the U.S. market, emphasizing our commitment to IDEA-compliant, accessible solutions for educational institutions.
+    \item \textbf{Ongoing Research:} Continue to explore AI-driven braille transcription technologies to reduce reliance on traditional embossers, in collaboration with Tsukuba University's AI research lab.
+\end{itemize}
+
+\subsection{Societal Vision}
+This project has reinforced my conviction that affordable and adaptable assistive technologies can break down barriers for marginalized groups. My commitment is to bridge the gap between academic innovation and real-world application, ensuring that technology serves as a tool for social equity rather than just a profit-driven venture.
+
+\section*{References}
+\begin{enumerate}
+    \item \textbf{Mamanchuk N., University of Tsukuba}, Github, \today. Available online: \url{https://github.com/RIFLE}
+\end{enumerate}
+
+\end{document}

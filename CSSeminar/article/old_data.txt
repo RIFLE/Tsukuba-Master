@@ -1,0 +1,29 @@
+\bibitem{ref_mitm}
+(Some authors),
+\emph{Hybrid Dual MiTM Attack on Sparse LWE.}
+(Conference, year).
+
+\bibitem{ref_smalln}
+(Another authors),
+\emph{Concrete attacks for $n\leq 110$.}
+(Conference, year).
+
+\bibitem{ref_largen}
+(Yet more authors),
+\emph{Statistical Distinguishers on LWE residuals with large $n$.}
+(Conference, year).
+
+\bibitem{salsa}
+(Authors),
+\emph{SALSA: Sub-sampling-based Attacks for LWE.}
+(Conference, year).
+
+\bibitem{ref_polish}
+(Various authors),
+\emph{polish: Fine-Tuning of Lattice Bases.}
+(Conference, year).
+
+\bibitem{ref_sparse}
+(Additional authors),
+\emph{Attack on Sparse LWE: Code Implementation.}
+(ArXiv, year).

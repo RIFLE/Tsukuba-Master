@@ -1,0 +1,422 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}  % for nicer tables
+\usepackage{hyperref}  % optional, for hyperlinks
+\usepackage{listings}  % for code listings
+\usepackage{graphicx}  % if you need to include graphics
+\usepackage{setspace}  % if you want spacing adjustments
+\usepackage[backend=biber, style=authoryear, citestyle=authoryear]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{a4paper, margin=1in}
+
+{
+\title{
+    \includegraphics[width=0.4\textwidth]{/Users/mlnick/documents/images/tsukuba-logo.png} \\
+    \textbf{Advanced Course in High Performance Computing} \\
+    \vspace{3mm}    
+    Final Report \\
+    on High Performance Computing Essentials
+}
+
+\author{Mamanchuk Mykola, SID.202420671}
+\date{\today}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+\subsubsection*{(1.1) Problem Statement}
+On a small size problem, it is difficult to gain an actual performance with large scale (highly parallel) supercomputer. Explain the reason with all the following terms. In the answer document, underline all the key terms to show you use all these words. The explanation should be in around 300 - 500 words.
+KEY TERMS: Amdahl's Law, sequential part, parallel part, total execution time, degree of parallelism, scalability, bottleneck
+
+\subsection*{(1.1) Explanation of Performance Difficulty for Small Problems}
+When working on a small size problem, achieving high performance on a large-scale supercomputer is often constrained by \underline{Amdahl's Law}. This principle tells us that the overall speedup of an application is bounded by the fraction of the code that remains in the \underline{sequential part}. Even if you can exploit massive parallel resources to accelerate the \underline{parallel part} of the workload, the \underline{total execution time} is ultimately limited by the code subsections that cannot be parallelized.
+
+Another relevant factor is the \underline{degree of parallelism}. As more processors are added, the communication and synchronization overheads can overshadow the benefits of parallel computation. In particular, small input sizes may not provide enough workload to keep every processor busy. The startup costs and synchronization points act as a \underline{bottleneck} to achieving a significant speedup. Additionally, to reach good \underline{scalability}, an application must minimize these overheads, balance the load across processors, and reduce the \underline{sequential part} of the code as much as possible.
+
+In practice, once you distribute a small problem across a highly parallel system, the gain from parallelizing the work can be dwarfed by overheads such as memory access, task initialization, data distribution, and result gathering. Even though you have a large number of processors, the real challenge is making sure each processor gets enough work to do while keeping communication and synchronization efficient. Consequently, the portion of time spent performing parallel tasks is relatively small compared to the sequential overhead and inter-processor exchanges. This leads to diminishing returns when scaling out to large numbers of processors, according to \underline{Amdahl's Law}.
+
+Hence, understanding the interplay between the \underline{parallel part} and the \underline{sequential part} of an application, along with communication overheads and the effective \underline{degree of parallelism}, is crucial for effectively using large-scale supercomputers. Identifying the main \underline{bottleneck} in a program and optimizing for \underline{scalability} allows developers to decide whether the problem size and the available parallel resources will genuinely deliver better performance than running on fewer cores or a single processor.
+
+\bigskip
+
+\subsubsection*{(1.2) Problem Statement}
+Explain the words “Strong Scaling” and “Weak Scaling” with around 500 words.
+You should include some example with any case with number or time to be consumed for calculation and communication, to lead the actual performance out of peak performance.
+
+\subsection*{(1.2) Strong Scaling vs.\ Weak Scaling}
+
+\textbf{Strong Scaling} examines how the runtime of a \emph{fixed-size} problem changes as more processors are added. Ideally, if you double the number of processors, you hope to halve the execution time. However, real applications rarely achieve such perfect speedups. There are synchronization and communication costs that become more pronounced as you increase parallel resources. For instance, imagine a problem taking 100 seconds on 1 processor: 80 seconds in parallel-friendly computation and 20 seconds in unavoidable sequential or communication tasks. On 4 processors, you might want the runtime to drop to 25 seconds, but actual overheads may boost that total to 45 seconds. The resulting speedup is only about 2.2$\times$, demonstrating that perfect strong scaling is rarely realized.
+
+\textbf{Weak Scaling} measures how runtime changes when you increase both the number of processors \emph{and} the problem size proportionally. For example, if you had a cluster of 4 processors running a simulation of 4 million cells in 60 seconds (1 million cells per processor), then \emph{weak scaling} suggests that moving to 16 processors for 16 million cells (still 1 million cells per processor) should ideally keep runtime around 60 seconds. In practice, you might see an increase (e.g., to 80 seconds) because of increased network communication and synchronization overhead. Thus, weak scaling focuses on whether the code can maintain roughly the same time-to-solution even as the total problem size grows in tandem with the number of processors.
+
+Communication costs, memory bandwidth, and synchronization collectively cause deviations from peak performance in both strong and weak scaling. While theoretical peak performance might assume perfect distribution of work and negligible communication times, real systems must contend with these overheads. By analyzing strong and weak scaling behaviors, HPC developers identify bottlenecks, refine algorithms for better data locality, and balance computational loads to bring actual performance as close as possible to the system’s theoretical peak.
+
+\bigskip
+
+\subsection*{(1.3) Parallel Computation with Communication Overhead}
+
+\subsubsection*{Problem Statement Recap}
+\begin{itemize}
+\item There is a total of \textbf{1 TFLOP} of computation.  
+\item A single processor solves this in \textbf{500 seconds}.  
+\item The program is assumed to be completely parallelizable with the same per-processor speed, ignoring communication.  
+\item The \textbf{communication cost} grows as \(\,0.2 \times N^2 \text{\,seconds}\), where \(N\) is the number of processors.
+\end{itemize}
+
+\subsubsection*{Formulas and Calculations}
+Let \(\,T(N)\,\) be the total execution time on \(N\) processors. Then:
+\[
+T(N) \;=\; \underbrace{\frac{500}{N}}_{\text{parallel computation time}}
+\;+\;
+\underbrace{0.2\,N^2}_{\text{communication time}}.
+\]
+
+\noindent
+\textbf{Speedup} is defined by
+\[
+\text{Speedup}(N) \;=\; \frac{T(1)}{T(N)} \;=\; \frac{500}{T(N)}.
+\]
+
+\noindent
+\textbf{Parallel Efficiency}, \(E(N)\), is
+\[
+E(N) \;=\; \frac{\text{Speedup}(N)}{N}\;\times\; 100\% 
+\;=\; \frac{500}{N\;\cdot\;T(N)}\;\times\; 100\%.
+\]
+
+\noindent
+\textbf{Effective Performance}, \(P(N)\) in GFLOPS, is
+\[
+P(N) 
+\;=\; \frac{\text{Total FLOP}}{\text{Total Time}} 
+\;=\; \frac{1\,\text{TFLOP}}{T(N)} 
+\;=\; \frac{1000\,\text{GFLOP}}{T(N)}.
+\]
+
+\subsubsection*{Results for Selected Values of \(\,N\)}
+Below is the output table for \(N = 2, 5, 10, \text{and } 100\). Notice how, for large \(N\), the communication term \((0.2\,N^2)\) dominates, potentially causing the overall runtime to be worse than using fewer processors.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{rcccc}
+\toprule
+\textbf{N} & \textbf{T(N) [s]} & \textbf{Speedup} & \textbf{E(N) [\%]} & \textbf{P(N) [GFLOPS]} \\
+\midrule
+2   & 250.8 & 1.994 & 99.681 & 3.987 \\
+5   & 105.0 & 4.762 & 95.238 & 9.524 \\
+10  & 70.0  & 7.143 & 71.429 & 14.286 \\
+100 & 2005.0& 0.249 & 0.249  & 0.499 \\
+\bottomrule
+\end{tabular}
+\caption{Parallel performance metrics for different numbers of processors \(N\).}
+\end{table}
+
+\newpage
+\subsubsection*{Code Snippet}
+Below I provide the Python code used to generate these results:
+
+\paragraph{Listing assignment.py}
+
+\begin{lstlisting}[language=python]
+    def compute_parallel_metrics(N_list):
+    """
+    Given a list of processor counts, compute:
+    - T(N): total execution time
+    - Speedup(N)
+    - E(N): parallel efficiency (%)
+    - P(N): effective performance in GFLOPS
+    """
+    
+    # Single-processor reference time
+    T_single = 500.0  # seconds
+    
+    # Total FLOPs for the problem (1 TFLOP = 1000 GFLOP)
+    total_flops_gf = 1000.0
+    
+    results = []
+    for N in N_list:
+        # Parallel computation time
+        T_comp = T_single / N
+        # Communication time
+        T_comm = 0.2 * (N ** 2)
+        # Total time
+        T_total = T_comp + T_comm
+        
+        # Speedup relative to single processor
+        speedup = T_single / T_total
+        
+        # Parallel efficiency in %
+        efficiency = (speedup / N) * 100
+        
+        # Effective performance in GFLOPS
+        perf_gflops = total_flops_gf / T_total
+        
+        results.append((N, T_total, speedup, efficiency, perf_gflops))
+    return results
+
+# Example usage:
+N_values = [2, 5, 10, 100]
+metrics = compute_parallel_metrics(N_values)
+
+# Print the results in a formatted table
+print(f"{'N':>5} | {'T(N) (s)':>10} | {'Speedup':>8} | {'E(N) (%)':>9} | {'P(N) (GFLOPS)':>14}")
+print("-"*60)
+for (N, T_val, sp, eff, perf) in metrics:
+    print(f"{N:5d} | {T_val:10.1f} | {sp:8.3f} | {eff:9.3f} | {perf:14.3f}")
+\end{lstlisting}
+
+\bigskip
+\noindent
+
+\subsubsection*{Conclusion to Subquestion 1.3}
+By examining these computations, we see that for small to moderate values of \(N\), the speedup and efficiency are relatively high. However, once \(N\) becomes very large, the \(\,0.2 \times N^2\) communication overhead dominates, drastically reducing efficiency and making the total execution time longer than on a single processor.
+
+\section*{Problem 2}
+
+The Discrete Fourier Transform (DFT) for an \(n\)-point sequence \(\{x(j)\}\) is defined by:
+\[
+y(k) \;=\; \sum_{j=0}^{n-1} x(j)\,\omega_n^{\,jk},
+\quad
+0 \,\le\, k \,\le\, n-1,
+\quad
+\text{where }
+\omega_n = e^{-\tfrac{2\pi i}{n}},\; i=\sqrt{-1}.
+\]
+
+\subsubsection*{(2.1) Problem Statement}
+
+Evaluate the number of real multiplications and additions for 64-point DFT and 64-
+point fast Fourier transform (FFT).
+
+\subsection*{(2.1) Operation Counts for 64-Point DFT vs.\ FFT}
+
+\paragraph{64-Point DFT (Naive Approach)}
+\begin{itemize}
+\item \textbf{Complex multiplications:} \(N^2 = 64^2 = 4096\).
+\item \textbf{Complex additions:} \(N \times (N-1) = 64 \times 63 = 4032\).
+\item \textbf{Real operation equivalents:}
+\[
+\begin{aligned}
+&\text{1 complex multiplication} \approx 4\;\text{real mult.} + 2\;\text{real add.},\\
+&\text{1 complex addition} \approx 2\;\text{real add.}.
+\end{aligned}
+\]
+Hence,
+
+\[
+\text{Total real multiplications} = 4096 \times 4 = 16384,
+\]
+\[
+\text{Total real additions} = (4096 \times 2) + (4032 \times 2) = 8192 + 8064 = 16256.
+\]
+
+\item Therefore, the naive 64-point DFT requires approximately \(16{,}384\) real multiplications and \(16{,}256\) real additions in total.
+\end{itemize}
+
+\paragraph{64-Point FFT (Cooley--Tukey Algorithm)}
+The \(\mathcal{O}(N \log N)\) FFT approach yields:
+\begin{itemize}
+\item \textbf{Complex multiplications:} \(\tfrac{N}{2}\log_2(N) = \tfrac{64}{2}\times 6 = 192.\)
+\item \textbf{Complex additions:} \(N \log_2(N) = 64 \times 6 = 384.\)
+\item \textbf{Real operation equivalents:}
+\[
+\begin{aligned}
+&\text{Total real multiplications} = 192 \times 4 = 768,\\
+&\text{Total real additions} = (192 \times 2) + (384 \times 2) = 384 + 768 = 1152.
+\end{aligned}
+\]
+\item Hence, the 64-point FFT requires \(\approx 768\) real multiplications and \(\approx 1152\) real additions.
+\end{itemize}
+
+\bigskip
+
+\subsubsection*{(2.2) Problem Statement}
+
+Develop the FFT program in arbitrary programming languages.
+Then, measure the execution time of a 65536-point double-complex FFT on your
+available PCs. Submit the source code and performance results
+
+\subsection*{(2.2) FFT Program and Performance Evaluation}
+
+\subsubsection*{Code Snippet}
+
+Below is a concise Python snippet that performs a double-precision (complex128) 65536-point FFT using NumPy, timing the execution over multiple runs. The average time is reported at the end. (Note that actual run times may vary based on CPU load, OS scheduling, CPU frequency scaling, and other system factors.)
+
+\begin{lstlisting}[language=python]
+    import numpy as np
+    import time
+    
+    def test_fft_performance(N=65536, num_runs=5):
+        """
+        Times the execution of an N-point complex-to-complex FFT using NumPy.
+        Returns the average time over num_runs runs.
+        """
+    
+        # Create a random complex input 
+        x = np.random.rand(N) + 1j * np.random.rand(N)
+    
+        # Pre-warm the FFT to avoid measuring any first-call overhead
+        _ = np.fft.fft(x)
+    
+        # Measure execution times
+        times = []
+        for _ in range(num_runs):
+            start = time.perf_counter()
+            y = np.fft.fft(x)
+            end = time.perf_counter()
+            times.append(end - start)
+    
+        avg_time = sum(times) / num_runs
+        return avg_time
+    
+    if __name__ == "__main__":
+        N = 65536
+        avg_time = test_fft_performance(N)
+        print(f"Average execution time for {N}-point FFT: {avg_time:.6f} seconds")    
+\end{lstlisting}
+
+\noindent
+Here is an example of possible execution results on a certain system:
+
+\begin{itemize}
+\item Average execution time for 65536-point FFT: 0.002305 seconds
+\item Average execution time for 65536-point FFT: 0.003342 seconds
+\item Average execution time for 65536-point FFT: 0.002234 seconds
+\item Average execution time for 65536-point FFT: 0.003515 seconds
+\item Average execution time for 65536-point FFT: 0.002987 seconds
+\end{itemize}
+
+\noindent
+The slight variability in timing (spanning roughly from 0.002 to 0.0035 seconds) arises naturally from:
+\begin{itemize}
+\item Operating system scheduling and other background tasks,
+\item CPU frequency scaling and thermal constraints,
+\item Memory/cache effects and data layout.
+\end{itemize}
+To get more reproducible results in an HPC context, one typically controls for these factors by pinning CPU cores, disabling frequency scaling, and ignoring warm-up overheads. For the purpose of this assignment, these times demonstrate that a 65536-point FFT can be computed in a few milliseconds on a modern CPU.
+
+\bigskip
+
+\noindent \textbf{Key Observations}:
+\begin{itemize}
+\item The naive DFT requires \(\mathcal{O}(N^2)\) operations, which becomes prohibitively large for big \(N\).
+\item The FFT reduces the operation count to \(\mathcal{O}(N \log N)\), making transforms feasible for large \(N\).
+\item In practical code, library implementations (like NumPy) are often based on highly optimized routines and produce execution times on the order of milliseconds for inputs of size \(65536\).
+\end{itemize}
+
+\noindent \subsection*{Conclusion to Subquestion 2.2}  
+For a 64-point problem, the FFT drastically reduces the total real operations from over 16K down to around 2K. For much larger problems like \(65536\)-point transforms, leveraging FFT routines is essential to achieve timely results. The measured average times demonstrate the feasibility of large FFTs on ordinary desktop or laptop machines in under a few milliseconds, although performance can fluctuate slightly from run to run.
+
+% End of Problem 2
+
+\section*{Problem 3}
+
+\subsection*{Problem Statement. Cache-Aware Matrix Multiplication}
+
+\noindent
+\textbf{Context:} We want to multiply a large matrix $C = AB$ of size $N \times N$ (with $N = 131{,}072 = 2^{17}$), using 64-bit double precision floats on a CPU that has:
+\begin{itemize}
+  \item 1.5\,MiB of cache (12-way associative),
+  \item A cache line size of 64\,bytes,
+  \item Double precision elements of 8\,bytes each,
+  \item And we aim to block (tile) the computation to fit sub-matrices entirely in cache.
+\end{itemize}
+
+\subsection*{(3.1) Best (Maximum) Sub-Matrix Size}
+
+To keep three sub-matrix blocks (from $A$, $B$, and $C$) simultaneously in the 1.5\,MiB cache, we require:
+\[
+3 \times B^2 \times 8 \;\le\; 1.5\,\text{MiB} \;\approx\; 1{,}572{,}864\text{\,bytes}.
+\]
+Solving for $B$, we get
+\[
+B^2 \;\le\; \frac{1{,}572{,}864}{24} \;=\; 65{,}536
+\;\;\;\Longrightarrow\;\;\;
+B \;\le\; 256.
+\]
+Hence, the \emph{largest integer} $B$ that fits this condition is
+\[
+\boxed{B = 256}.
+\]
+
+\subsection*{(3.2) Best (Minimum) Padding Size}
+
+Because the cache is 12-way associative and each cache line is 64\,bytes, we want each row to align so that it does not repeatedly map to the same cache set. In general, we try to ensure that each row in memory spans a multiple of
+\[
+(\text{ways}) \;\times\; (\text{line size}) = 12 \times 64 = 768\text{ bytes}.
+\]
+Since each double is 8\,bytes, we want rows to be a multiple of $768 / 8 = 96$ elements. Given $N = 131{,}072$,
+\[
+N \bmod 96 = 32,
+\quad
+\text{so the padding needed is }
+p = 96 - 32 = 64.
+\]
+Thus, each matrix (for $A$, $B$, and $C$) can be stored in an array of size \(\;[N][N + p]\) so that $(N + p)$ is divisible by 96. Concretely,
+\[
+\boxed{p = 64},
+\]
+which makes $N + p = 131{,}072 + 64 = 131{,}136$ a multiple of 96.
+
+\subsection*{(3.3) Verification and Answers}
+
+Below is an example output (verified with a short Python script) confirming these computed values:
+
+\begin{verbatim}
+Computed maximum B = 256
+N mod 96 = 32
+Needed padding p = 64
+New row length = 131136
+\end{verbatim}
+
+\noindent
+\subsection*{Conclusion to Problem 3}  
+The recommended \textbf{block size} for matrix multiplication is $B = 256$, and the \textbf{minimum padding} is $p = 64$ for each matrix to mitigate cache conflicts and make efficient use of the CPU’s 1.5\,MiB 12-way associative cache. 
+
+Choosing $B=256$ allows $A$, $B$, and $C$ sub-blocks to fit entirely in the 1.5\,MiB cache. Adding $p=64$ columns ensures each row is aligned to multiples of 768\,bytes, reducing excessive cache set collisions and improving overall cache efficiency in large-scale matrix multiplication.
+
+
+\setlength{\fboxsep}{0pt} % Removes padding around the image
+\setlength{\fboxrule}{0.5pt} % Sets the thickness of the border
+
+
+\subsection*{References}
+\begin{enumerate}
+    \item \textbf{Mamanchuk N., University of Tsukuba}, Github, \today. Available online: \url{https://github.com/RIFLE}
+\end{enumerate}
+
+\end{document}

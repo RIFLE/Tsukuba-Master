@@ -1,0 +1,105 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}  % for clickable links (optional)
+
+\begin{document}
+
+\begin{center}
+{\large \textbf{Q\&A Report}}\\[6pt]
+\textbf{University of Tsukuba, Graduate School of Science and Technology}\\
+\textbf{Systems and Information Engineering (Master's program in CS, year 1)}\\[5pt]
+\textbf{ID: 202420671 \quad MAMANCHUK Mykola}\\
+\textbf{Supervisor: Noboru Kunihiro}\\[4pt]
+\textit{Presentation Date: 2025/01/30}\\[8pt]
+
+\textbf{Research Title:}\\
+\textit{Cool, Chill, and Cruel: Probabilistic Ranking with Greedy Approach for Recovering Sparse Binary Secrets in LWE}
+\end{center}
+
+\vspace{1em}
+
+\section*{QA Report}
+
+\noindent
+\textbf{Question 1.}\\
+\emph{What is the main motivation behind introducing the three-zone approach (Cool, Chill, and Cruel) instead of the traditional two-zone model?}
+
+\paragraph{Answer}
+The key motivation for the \textbf{three-zone partition} stems from observing that partial-lattice reduction often produces an \emph{in-between} region where column variance is neither strictly high nor strictly low. In prior two-zone methods, these “medium-variance” columns either inflate the brute force set (\textit{Cruel}) or are misclassified as “easy” (\textit{Cool}), leading to frequent errors. 
+
+By introducing a \emph{Chill} region for moderate-variance columns, we can apply probabilistic or ML-based techniques to exploit the partial structure in those columns. This not only reduces the exponent on the fully uniform bits (\(n_{\mathrm{cruel}}\)) but also captures the “semi-reduced” information to avoid re-checking or large sample usage. Essentially, we want to better handle columns that do not exhibit a clean variance “cliff” but still carry enough structure to guide partial recovery more efficiently than brute force.
+
+\vspace{0.6em}
+\noindent
+\textbf{Question 2.}\\
+\emph{You mention the use of ML as a future prospect---have you decided on a specific classifier to use?}
+
+\paragraph{Answer}
+Currently, we are evaluating \textbf{transformer-based} approaches inspired by \textit{Salsa Picante} \cite{Picante2023} and \textit{Salsa Verde} \cite{Verde2023}. These works view LWE secret recovery as a \emph{multi-class classification} problem, rather than direct regression. In doing so, one can train models to estimate the probability that each relevant column bit is $1$ vs.\ $0$, leveraging partial attention mechanisms (e.g., cross-attention) to identify which coordinates in the matrix are “active.” 
+
+Concretely, we might attempt:
+\begin{itemize}
+    \item A \textit{small logistic model} for moderate-variance columns, 
+    \item or a \textit{transformer} if those columns remain “semi-reduced” but structured enough for deeper learning.
+\end{itemize}
+We have \textbf{not} locked onto a single architecture; different subsets of Chill columns might need different classifiers. The overall aim is to keep overhead---\(\mathrm{ML\_overhead}(1)\)---manageable, while extracting valuable features from partially reduced columns.
+
+\vspace{0.6em}
+\noindent
+\textbf{Question 3.}\\
+\emph{In the comparison between the original 'Two-Zone Complexity' and your proposed 'Three-Zone Method', you mention the potential for lower $n_{\mathrm{cruel}}$ and reduced brute force dimensions. Can you explain how the 'Chill set' in the Three-Zone Method specifically contributes to these improvements, and are there practical scenarios where this method significantly outperforms the Two-Zone approach in terms of computational efficiency?}
+
+\paragraph{Answer}
+In a two-zone model, partially reduced columns are either grouped with uniform “hard” bits---thus inflating the exponent in $2^{n_u}$---or incorrectly labeled “easy,” leading to misclassifications. The \emph{Chill set} in our three-zone approach places such medium-variance columns into an intermediate classification step, letting us:
+\begin{itemize}
+    \item \emph{Lower $n_{\mathrm{cruel}}$} by removing columns from the brute force subset,
+    \item \emph{Exploit partial structure} in those columns with ranking/BFS or small ML. 
+\end{itemize}
+Hence, the total complexity can drop if the Chill method correctly identifies a sufficient fraction of those bits. 
+
+\textbf{Practical scenarios:}
+\begin{itemize}
+    \item \emph{Large dimension $n\ge 512$} with a wide “slope” after partial reduction; 
+    \item \emph{Reasonable classifier accuracy} in Chill (e.g.\ $\ge$ 50--60\% correct bits). 
+\end{itemize}
+Under these conditions, the three-zone method might \emph{significantly} outperform a naive two-zone approach, where all intermediate columns bloat the brute force set.
+
+\subsection*{Self-Analysis and Plan for Improvement}
+
+After reviewing the feedback and re-watching my presentation, I identified several key areas for enhancement:
+
+\begin{itemize}
+    \item \textbf{Diagrams and Visual Clarity:} 
+    I will revise complex figures so that each one is more detailed and precise. In particular, labeling axes, highlighting crucial variables, and ensuring the slides capture the essence without overloading the audience is paramount. This will help the listener better visualize the data flow and variance transition in my three-zone model.
+
+    \item \textbf{Time Allocation and Structure:} 
+    The 15-minute constraint requires carefully planning an outline rather than delving too deeply into every technical detail. I will create a tighter structure, dedicating only a few slides per major concept, and allotting specific times for each portion to ensure a balanced pace.
+
+    \item \textbf{Context and Related Approaches:}
+    While technical depth is important, the audience indicated they also want to understand how this approach fits into the broader research landscape. Therefore, I plan to allocate at least one or two slides early on to explain existing methods and how my proposal differs or improves upon them.
+
+    \item \textbf{Answering Questions Clearly:}
+    During the Q\&A, some questions may arise at a broader conceptual level rather than minute technical details. I will practice framing answers at the appropriate level, explaining the essence of my contributions and focusing on the “border area” rather than overloading the response with purely internal/technical specifics.
+
+    \item \textbf{Language Proficiency:}
+    Given that my presentation is partially in Japanese, and nuanced details can be lost, I will continue improving my Japanese skills to better express complex thoughts in simpler terms. This will enhance comprehension and engagement during presentations and Q\&A sessions.
+\end{itemize}
+
+Overall, I intend to refine my presentation strategy—both visually and structurally—to ensure that the core idea of the “Cool, Chill, and Cruel” attack framework is clear, engaging, and well-situated among existing LWE-based cryptanalysis methods.
+
+\vspace{1em}
+\begin{thebibliography}{9}
+\bibitem{Picante2023} 
+  K.~Lauter \textit{et al.},
+  \emph{Salsa Picante: A Machine Learning Attack on LWE with Binary Secrets}, 
+  ePrint: \href{https://eprint.iacr.org/2023/340.pdf}{2023/340}.
+
+\bibitem{Verde2023}
+  C.~Y.~Li, E.~Wenger \textit{et al.},
+  \emph{Salsa Verde: a Machine Learning Attack on LWE with Sparse Small Secrets},
+  ePrint: \href{https://eprint.iacr.org/2023/968}{2023/968}.
+\end{thebibliography}
+
+\end{document}

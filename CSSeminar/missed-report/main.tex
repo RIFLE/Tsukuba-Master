@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\title{Unsubmitted Feedback Report on\\ \textit{"When Fairness Meets With Reasonableness In Recommender Systems"}}
+\author{%
+  \textbf{Report Submitter:} Student ID 202420671 Mamanchuk Mykola\\[1mm]
+  University of Tsukuba, Graduate School of Science and Technology,\\
+  Systems and Information Engineering, Master Program in Computer Science\\[2mm]
+  \textbf{Feedback Report:} Channel 1, Presenter 3\\[1mm]
+  \textbf{Presenter:} Win Lei Thwe (ID: 202420708) \\ Date of Presentation: February 6th 2025
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Research Overview and Details}
+The research presented in the paper \textit{"When Fairness Meets With Reasonableness In Recommender Systems"} focuses on integrating fairness into recommender systems by aligning the characteristics of items with the sensitive attributes of users. Key aspects of the research include:
+\begin{itemize}[noitemsep]
+    \item \textbf{Objective:} Develop an algorithm that transforms conventional recommender outputs into fair recommendations by ensuring that the treatment of items aligns with their inherent characteristics.
+    \item \textbf{Methodology:} 
+    \begin{itemize}[noitemsep]
+        \item Grouping users based on shared sensitive attributes.
+        \item Calculating balanced pairwise rating ratios between user groups.
+        \item Reconstructing ratings to produce a fair recommendation output.
+    \end{itemize}
+    \item \textbf{Evaluation:} A comparative study between the proposed Reasonable Recommender (RR) and a Conventional Recommender (CR) was conducted. Evaluation metrics such as Precision, Recall, and Hit@R were used across different top-K thresholds.
+\end{itemize}
+Although the research objectives were clearly stated, the presentation omitted discussion on several base assumptions and experimental conditions (e.g., ensuring that the dataset accurately represents all required scenarios, such as cases where demographic norms might be challenged). This oversight raises concerns about potential bias in the experimental results.
+
+\section*{Presentation Observations and Feedback}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Objective Clarity:} The presenter effectively communicated the main objectives of the research.
+    \item \textbf{Omitted Conditions:} Critical base assumptions and conditions underlying the experiment were not addressed. For example, the presenter did not clarify if the observed dataset satisfies all necessary conditions (such as appropriate representation of atypical cases like boys wearing dresses), which could lead to significant bias.
+    \item \textbf{Expert Feedback:} Aranha-sensei emphasized the importance of verifying that the observed set meets all stated conditions to avoid introducing substantial biases into the experimental setup.
+    \item \textbf{Depth of Explanation:} While the overall delivery was acceptable, the presenter needs to offer deeper insights and more comprehensive answers to questions during the Q\&A session.
+\end{itemize}
+
+\section*{Overall Recommendations}
+\begin{itemize}[leftmargin=1.5em]
+    \item Address all base assumptions and experimental conditions clearly in both the paper and the presentation.
+    \item Provide detailed explanations regarding potential biases in the dataset.
+    \item Enhance the depth of discussion during presentations to better clarify theoretical underpinnings and effectively answer audience questions.
+\end{itemize}
+
+\section*{Conclusion}
+In summary, the research objectives were clearly communicated; however, the presentation lacked a detailed discussion on critical conditions and assumptions. Addressing these issues and delving deeper into potential biases will improve both the clarity and robustness of the work.
+
+\bigskip
+\noindent\textbf{Report Submitter:} Student ID 202420671 Mamanchuk Mykola
+
+\end{document}

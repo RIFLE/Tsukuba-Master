@@ -1,0 +1,148 @@
+Comprehensive Documentation for LWE Key Recovery Attack
+
+This document details the entire process of the Learning With Errors (LWE) key recovery attack, incorporating brute force for cruel bits, probabilistic enumeration for the sloping region, and iterative recovery for cool bits. The methodology is designed to achieve efficiency by focusing on statistical properties of the secret and leveraging iterative refinements.
+
+Definitions and Key Components
+
+
+1. Problem Definition
+
+The LWE problem can be defined as:
+
+where:
+
+A: Known  matrix (public information).
+
+b: Known  vector (public information).
+
+s: Secret  vector (to be recovered).
+
+e: Error vector sampled from a small noise distribution.
+
+q: Modulus.
+
+The goal is to recover the secret given ,equations in matrix multiplicaiton, and the statistical properties of inner variance of elements of individual columns of a reduced matrix.
+
+
+2. Variables and Regions
+
+N: Total number of bits in the secret vector s
+
+n_cruel: Number of cruel bits—these are hard to recover due to high variance and minimal reduction.
+
+n_sloping: Number of sloping bits—these are intermediate in difficulty with variance between the cruel and cool thresholds.
+
+n_cool = N - n_cruel - n_sloping: Number of cool bits—these are highly reduced and easier to recover.
+
+hw(): Hamming weight of the secret, i.e., the total number of "1" bits in s
+
+cruel_1(): Number of "1" bits recovered in the cruel region.
+
+k = hw() - cruel_1(): Remaining "1" bits to be distributed across the sloping and cool regions.
+
+
+Attack Phases
+
+The attack consists of three main phases:
+
+Phase 1: Brute Force for Cruel Bits
+
+Objective
+
+Recover the cruel bits, which remain largely unreduced and have high variance. These bits are the hardest to recover due to the lack of statistical structure.
+
+Process
+
+Identify Cruel Bits:
+
+Analyze the variance of columns in  after lattice reduction.
+
+Select the first n_cruel columns with variance above a specified threshold (essentially before the sloping region)
+
+Brute Force Search:
+
+Generate all possible combinations of cruel bits.
+
+For each combination, verify if it satisfies the LWE equation: Verify(candidate, A, b)
+
+where  should resemble the known noise distribution. (??)
+
+Complexity
+
+C_brute​(n_cruel​)=2^n_cruel​⋅C_verify​
+where C_verify​ is the cost of verifying a single candidate.
+
+Output
+
+n_cruel Recovered cruel bits.
+
+cruel_1() Number of "1" bits in n_cruel part of the secret
+
+
+Phase 2: Probabilistic Enumeration of the Sloping Region
+
+Objective
+
+Efficiently explore configurations of the sloping bits to refine recovery efforts.
+
+Process
+
+Probability Estimation:
+
+For each sloping bit n_sloping compute the probability of being "1" based on its column variance:
+
+Generate Most Likely Configuration:
+
+Assign the remaining "1" bits to the sloping region, prioritizing most "reliable" columns with the lowest variance (essentially we have to make an array of cases sorted by probability of appearance - if possible)
+
+
+Iterative Refinement:
+
+If recovery fails under the initial configuration, adjust the configuration iteratively (or as proposed and calculated - switch to the next most likely one):
+
+Flip one bit from its most likely value to its second most likely value (or switch to the next "most likely" case).
+
+Re-execute the cool bit recovery phase for each iteration.
+
+Complexity: Recovery of Cool Bits
+
+Objective
+
+Recover the remaining cool bits using statistical optimization techniques.
+
+Process
+
+Greedy Recovery:
+
+Sequentially flip and recover each cool bit as stated in the paper.
+
+Retain the flip if it reduces the variance of the residual . ;
+
+Refinement:
+
+If recovery fails, revisit the sloping region, adjust assumptions, and re-execute the recovery phase with a new case.
+
+
+Complexity n/a
+
+For greedy recovery:
+
+Overall Complexity
+
+The total complexity combines all phases:
+
+Substituting the formulas:
+
+Failure Conditions
+
+The attack fails if:
+
+No valid candidate for cruel bits is found during the iteration phase until the number_of_iterations is not reached.
+If number_of_iterations := all Probability_Estimation_Cases, attack should in principle, be successful due to probing out all cases
+
+// i.e. meaning if the remaining  "1" bits exceed the total available "1's" left for sloping and cool regions or exceded its size
+
+Conclusion
+
+This document provides a comprehensive breakdown of the LWE key recovery attack, balancing brute force, probabilistic reasoning, and statistical optimization. By leveraging these techniques in a structured manner, the attack achieves significant efficiency while accounting for the complexity of the LWE problem.
+
